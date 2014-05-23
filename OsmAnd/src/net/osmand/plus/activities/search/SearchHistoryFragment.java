@@ -4,7 +4,6 @@ import java.util.List;
 
 import net.londatiga.android.QuickAction;
 import net.osmand.data.LatLon;
-import net.osmand.plus.OsmAndFormatter;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.R;
@@ -12,6 +11,7 @@ import net.osmand.plus.SearchHistoryHelper;
 import net.osmand.plus.SearchHistoryHelper.HistoryEntry;
 import net.osmand.plus.activities.MapActivityActions;
 import net.osmand.plus.activities.search.SearchActivity.SearchActivityChild;
+import net.osmand.plus.utils.OsmAndFormatter;
 import net.osmand.util.MapUtils;
 import android.content.Intent;
 import android.os.Bundle;

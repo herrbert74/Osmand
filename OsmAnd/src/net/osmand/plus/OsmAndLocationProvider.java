@@ -8,12 +8,14 @@ import java.util.List;
 
 import net.osmand.GeoidAltitudeCorrection;
 import net.osmand.PlatformUtil;
-import net.osmand.access.NavigationInfo;
 import net.osmand.binary.RouteDataObject;
 import net.osmand.data.LatLon;
 import net.osmand.data.QuadPoint;
 import net.osmand.plus.OsmandSettings.OsmandPreference;
+import net.osmand.plus.plugins.OsmandPlugin;
+import net.osmand.plus.plugins.access.NavigationInfo;
 import net.osmand.plus.routing.RoutingHelper;
+import net.osmand.plus.utils.CurrentPositionHelper;
 import net.osmand.router.RouteSegmentResult;
 import net.osmand.util.MapUtils;
 import android.content.Context;

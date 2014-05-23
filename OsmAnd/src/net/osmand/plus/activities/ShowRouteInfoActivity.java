@@ -10,14 +10,14 @@ import java.util.List;
 
 import android.content.Intent;
 import net.osmand.Location;
-import net.osmand.plus.GPXUtilities;
-import net.osmand.plus.GPXUtilities.GPXFile;
-import net.osmand.plus.OsmAndFormatter;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.R;
 import net.osmand.plus.routing.RouteDirectionInfo;
 import net.osmand.plus.routing.RoutingHelper;
+import net.osmand.plus.utils.GPXUtilities;
+import net.osmand.plus.utils.OsmAndFormatter;
+import net.osmand.plus.utils.GPXUtilities.GPXFile;
 import net.osmand.plus.views.TurnPathHelper;
 import net.osmand.plus.views.controls.MapRouteInfoControl;
 import net.osmand.util.Algorithms;

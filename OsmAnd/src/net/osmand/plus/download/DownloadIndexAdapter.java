@@ -9,7 +9,7 @@ import net.osmand.map.OsmandRegions;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.DownloadIndexActivity;
-import net.osmand.plus.activities.OsmandBaseExpandableListAdapter;
+import net.osmand.plus.adapters.OsmandBaseExpandableListAdapter;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;

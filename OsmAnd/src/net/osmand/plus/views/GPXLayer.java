@@ -4,8 +4,8 @@ import java.util.List;
 
 import net.osmand.data.QuadRect;
 import net.osmand.data.RotatedTileBox;
-import net.osmand.plus.GPXUtilities.GPXFile;
-import net.osmand.plus.GPXUtilities.WptPt;
+import net.osmand.plus.utils.GPXUtilities.GPXFile;
+import net.osmand.plus.utils.GPXUtilities.WptPt;
 import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.R;
 import net.osmand.render.RenderingRuleSearchRequest;
