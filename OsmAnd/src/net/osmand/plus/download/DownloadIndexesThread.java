@@ -17,17 +17,17 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import net.osmand.IndexConstants;
 import net.osmand.PlatformUtil;
-import net.osmand.access.AccessibleToast;
 import net.osmand.plus.OsmandApplication;
-import net.osmand.plus.OsmandPlugin;
 import net.osmand.plus.OsmandSettings.OsmandPreference;
 import net.osmand.plus.R;
 import net.osmand.plus.Version;
 import net.osmand.plus.activities.DownloadIndexActivity;
 import net.osmand.plus.base.BasicProgressAsyncTask;
 import net.osmand.plus.download.DownloadFileHelper.DownloadFileShowWarning;
+import net.osmand.plus.plugins.OsmandPlugin;
+import net.osmand.plus.plugins.access.AccessibleToast;
+import net.osmand.plus.plugins.srtm.SRTMPlugin;
 import net.osmand.plus.resources.ResourceManager;
-import net.osmand.plus.srtmplugin.SRTMPlugin;
 import net.osmand.util.Algorithms;
 
 import org.apache.commons.logging.Log;

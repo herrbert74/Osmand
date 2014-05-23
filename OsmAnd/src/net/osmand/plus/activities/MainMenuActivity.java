@@ -4,15 +4,15 @@ import java.io.File;
 import java.text.MessageFormat;
 import java.util.Random;
 
-import net.osmand.access.AccessibleAlertBuilder;
 import net.osmand.data.LatLon;
 import net.osmand.plus.OsmAndAppCustomization;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.R;
 import net.osmand.plus.Version;
 import net.osmand.plus.activities.search.SearchActivity;
+import net.osmand.plus.plugins.access.AccessibleAlertBuilder;
+import net.osmand.plus.plugins.sherpafy.SherpafyCustomization;
 import net.osmand.plus.render.MapRenderRepositories;
-import net.osmand.plus.sherpafy.SherpafyCustomization;
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;

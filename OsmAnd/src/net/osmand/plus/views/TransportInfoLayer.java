@@ -2,13 +2,13 @@ package net.osmand.plus.views;
 
 import java.util.List;
 
-import net.osmand.access.AccessibleToast;
 import net.osmand.data.LatLon;
 import net.osmand.data.RotatedTileBox;
 import net.osmand.data.TransportRoute;
 import net.osmand.data.TransportStop;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.TransportRouteHelper;
+import net.osmand.plus.plugins.access.AccessibleToast;
 import net.osmand.plus.resources.TransportIndexRepository.RouteInfoLocation;
 import android.graphics.Canvas;
 import android.graphics.Paint;

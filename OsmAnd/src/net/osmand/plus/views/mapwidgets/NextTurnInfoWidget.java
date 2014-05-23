@@ -1,7 +1,7 @@
 package net.osmand.plus.views.mapwidgets;
 
-import net.osmand.plus.OsmAndFormatter;
 import net.osmand.plus.R;
+import net.osmand.plus.utils.OsmAndFormatter;
 import net.osmand.plus.views.MapInfoLayer;
 import net.osmand.plus.views.OsmandMapLayer.DrawSettings;
 import net.osmand.router.TurnType;

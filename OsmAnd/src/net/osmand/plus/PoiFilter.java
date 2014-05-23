@@ -13,6 +13,7 @@ import net.osmand.IndexConstants;
 import net.osmand.ResultMatcher;
 import net.osmand.data.Amenity;
 import net.osmand.data.AmenityType;
+import net.osmand.plus.utils.OsmAndFormatter;
 import net.osmand.util.MapUtils;
 
 import org.apache.http.client.protocol.ClientContext;

@@ -219,11 +219,13 @@
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
-        
-        
-        <activity android:name="net.osmand.plus.osmo.SettingsOsMoActivity" android:configChanges="keyboardHidden|orientation"></activity>
-        <activity android:name="net.osmand.plus.osmo.OsMoGroupsActivity"></activity>
 
+        <activity
+            android:name="net.osmand.plus.plugins.osmo.SettingsOsMoActivity"
+            android:configChanges="keyboardHidden|orientation" >
+        </activity>
+        <activity android:name="net.osmand.plus.plugins.osmo.OsMoGroupsActivity" >
+        </activity>
         <activity
             android:name="net.osmand.plus.activities.SettingsActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -238,23 +240,19 @@
             android:configChanges="keyboardHidden|orientation" >
         </activity>
         <activity
-            android:name="net.osmand.plus.monitoring.SettingsMonitoringActivity"
+            android:name="net.osmand.plus.plugins.monitoring.SettingsMonitoringActivity"
             android:configChanges="keyboardHidden|orientation" >
         </activity>
         <activity
-            android:name="net.osmand.plus.rastermaps.SettingsRasterMapsActivity"
+            android:name="net.osmand.plus.plugins.rastermaps.SettingsRasterMapsActivity"
             android:configChanges="keyboardHidden|orientation" >
         </activity>
         <activity
-            android:name="net.osmand.plus.osmo.SettingsOsMoActivity"
+            android:name="net.osmand.plus.plugins.osmedit.SettingsOsmEditingActivity"
             android:configChanges="keyboardHidden|orientation" >
         </activity>
         <activity
-            android:name="net.osmand.plus.osmedit.SettingsOsmEditingActivity"
-            android:configChanges="keyboardHidden|orientation" >
-        </activity>
-        <activity
-            android:name="net.osmand.plus.development.SettingsDevelopmentActivity"
+            android:name="net.osmand.plus.plugins.development.SettingsDevelopmentActivity"
             android:configChanges="keyboardHidden|orientation" >
         </activity>
         <activity
@@ -262,7 +260,7 @@
             android:configChanges="keyboardHidden|orientation" >
         </activity>
         <activity
-            android:name="net.osmand.access.SettingsAccessibilityActivity"
+            android:name="net.osmand.plus.plugins.access.SettingsAccessibilityActivity"
             android:configChanges="keyboardHidden|orientation" >
         </activity>
         <activity
@@ -309,7 +307,7 @@
         </activity>
         <activity android:name="net.osmand.plus.activities.search.SearchBuildingByNameActivity" >
         </activity>
-        <activity android:name="net.osmand.plus.sherpafy.TourCommonActivity" >
+        <activity android:name="net.osmand.plus.plugins.sherpafy.TourCommonActivity" >
         </activity>
         <activity android:name="net.osmand.plus.activities.EditPOIFilterActivity" >
         </activity>
@@ -338,17 +336,17 @@
             <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.item/postal-address_v2" />
-            </intent-filter>
+            </intent-filter>
             -->
         </activity>
-        <activity android:name="net.osmand.plus.development.TestVoiceActivity" >
+        <activity android:name="net.osmand.plus.plugins.development.TestVoiceActivity" >
         </activity>
         <activity
             android:name="net.osmand.plus.activities.LocalIndexesActivity"
             android:label="@string/local_index_descr_title" >
         </activity>
         <activity
-            android:name="net.osmand.plus.osmedit.LocalOpenstreetmapActivity"
+            android:name="net.osmand.plus.plugins.osmedit.LocalOpenstreetmapActivity"
             android:label="@string/local_openstreetmap_act_title" >
         </activity>
 
