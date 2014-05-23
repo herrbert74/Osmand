@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
+import net.osmand.plus.plugins.access.AccessibleAlertBuilder;
 
 public class ShareLocation extends OsmAndAction {
 	

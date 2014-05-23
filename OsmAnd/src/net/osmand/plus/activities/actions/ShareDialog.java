@@ -3,10 +3,10 @@ package net.osmand.plus.activities.actions;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.osmand.access.AccessibleAlertBuilder;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.R;
 import net.osmand.plus.Version;
+import net.osmand.plus.plugins.access.AccessibleAlertBuilder;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;

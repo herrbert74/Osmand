@@ -2,17 +2,18 @@ package net.osmand.plus.routepointsnavigation;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.osmand.CallbackWithObject;
 import net.osmand.data.LatLon;
-import net.osmand.plus.GPXUtilities;
-import net.osmand.plus.GPXUtilities.GPXFile;
 import net.osmand.plus.OsmandApplication;
-import net.osmand.plus.OsmandPlugin;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.OsmandListActivity;
-import net.osmand.plus.helpers.GpxUiHelper;
+import net.osmand.plus.plugins.OsmandPlugin;
 import net.osmand.plus.routepointsnavigation.RoutePointsPlugin.RoutePoint;
 import net.osmand.plus.routepointsnavigation.RoutePointsPlugin.SelectedRouteGpxFile;
+import net.osmand.plus.utils.GPXUtilities;
+import net.osmand.plus.utils.GPXUtilities.GPXFile;
+import net.osmand.plus.utils.GpxUiHelper;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;

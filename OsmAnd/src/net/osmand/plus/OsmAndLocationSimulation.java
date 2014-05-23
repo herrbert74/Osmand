@@ -6,11 +6,12 @@ import java.util.List;
 
 import net.osmand.CallbackWithObject;
 import net.osmand.Location;
-import net.osmand.access.AccessibleToast;
 import net.osmand.plus.activities.MapActivity;
-import net.osmand.plus.helpers.GpxUiHelper;
+import net.osmand.plus.plugins.access.AccessibleToast;
 import net.osmand.plus.routing.RouteProvider.GPXRouteParamsBuilder;
 import net.osmand.plus.routing.RoutingHelper;
+import net.osmand.plus.utils.GPXUtilities;
+import net.osmand.plus.utils.GpxUiHelper;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;

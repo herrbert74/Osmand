@@ -1,25 +1,5 @@
 package net.osmand.plus.helpers;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.ParcelFileDescriptor;
-import android.provider.OpenableColumns;
-import android.widget.Toast;
-import net.osmand.IndexConstants;
-import net.osmand.access.AccessibleToast;
-import net.osmand.data.FavouritePoint;
-import net.osmand.plus.FavouritesDbHelper;
-import net.osmand.plus.GPXUtilities;
-import net.osmand.plus.OsmandApplication;
-import net.osmand.plus.R;
-import net.osmand.plus.activities.MapActivity;
-import net.osmand.plus.views.OsmandMapTileView;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,6 +12,27 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import net.osmand.IndexConstants;
+import net.osmand.data.FavouritePoint;
+import net.osmand.plus.OsmandApplication;
+import net.osmand.plus.R;
+import net.osmand.plus.activities.MapActivity;
+import net.osmand.plus.plugins.access.AccessibleToast;
+import net.osmand.plus.utils.FavouritesDbHelper;
+import net.osmand.plus.utils.GPXUtilities;
+import net.osmand.plus.utils.Kml2Gpx;
+import net.osmand.plus.views.OsmandMapTileView;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.ParcelFileDescriptor;
+import android.provider.OpenableColumns;
+import android.widget.Toast;
 
 /**
  * @author Koen Rabaey

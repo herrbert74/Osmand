@@ -1,20 +1,19 @@
 package net.osmand.plus.routepointsnavigation;
 
-import android.content.DialogInterface;
-import android.graphics.Canvas;
-import android.graphics.PointF;
-import android.os.AsyncTask;
+import java.util.List;
+
 import net.osmand.data.LatLon;
 import net.osmand.data.RotatedTileBox;
 import net.osmand.plus.ContextMenuAdapter;
-import net.osmand.plus.GPXUtilities;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.MapActivity;
+import net.osmand.plus.utils.GPXUtilities;
 import net.osmand.plus.views.ContextMenuLayer;
 import net.osmand.plus.views.OsmandMapLayer;
 import net.osmand.plus.views.OsmandMapTileView;
-
-import java.util.List;
+import android.content.DialogInterface;
+import android.graphics.Canvas;
+import android.graphics.PointF;
 
 /**
  * Created by Barsik on 20.06.2014.

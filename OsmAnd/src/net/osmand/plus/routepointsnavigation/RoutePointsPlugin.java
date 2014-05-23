@@ -1,36 +1,39 @@
 package net.osmand.plus.routepointsnavigation;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 
-import android.app.ActionBar;
-import android.content.Context;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import net.osmand.data.LatLon;
 import net.osmand.plus.ApplicationMode;
-import net.osmand.plus.GPXUtilities;
-import net.osmand.plus.GPXUtilities.GPXFile;
-import net.osmand.plus.GPXUtilities.Route;
-import net.osmand.plus.GPXUtilities.WptPt;
-import net.osmand.plus.OsmAndFormatter;
 import net.osmand.plus.OsmandApplication;
-import net.osmand.plus.OsmandPlugin;
 import net.osmand.plus.R;
 import net.osmand.plus.TargetPointsHelper;
 import net.osmand.plus.activities.MapActivity;
+import net.osmand.plus.plugins.OsmandPlugin;
+import net.osmand.plus.utils.GPXUtilities;
+import net.osmand.plus.utils.GPXUtilities.GPXFile;
+import net.osmand.plus.utils.GPXUtilities.Route;
+import net.osmand.plus.utils.GPXUtilities.WptPt;
+import net.osmand.plus.utils.OsmAndFormatter;
 import net.osmand.plus.views.MapInfoLayer;
 import net.osmand.plus.views.OsmandMapLayer;
 import net.osmand.plus.views.OsmandMapTileView;
 import net.osmand.plus.views.mapwidgets.TextInfoWidget;
 import net.osmand.util.MapUtils;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.text.format.DateFormat;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
 
 /**
  * Created by Barsik on 10.06.2014.

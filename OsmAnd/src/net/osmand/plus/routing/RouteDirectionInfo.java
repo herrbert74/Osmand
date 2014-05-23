@@ -1,7 +1,7 @@
 package net.osmand.plus.routing;
 
-import net.osmand.plus.OsmAndFormatter;
 import net.osmand.plus.OsmandApplication;
+import net.osmand.plus.utils.OsmAndFormatter;
 import net.osmand.router.TurnType;
 
 public class RouteDirectionInfo {

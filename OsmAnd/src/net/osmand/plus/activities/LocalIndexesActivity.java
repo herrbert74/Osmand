@@ -12,12 +12,14 @@ import java.util.Set;
 
 import net.osmand.IProgress;
 import net.osmand.IndexConstants;
-import net.osmand.access.AccessibleToast;
 import net.osmand.map.OsmandRegions;
 import net.osmand.plus.*;
 import net.osmand.plus.ContextMenuAdapter.OnContextMenuClick;
 import net.osmand.plus.activities.LocalIndexHelper.LocalIndexType;
 import net.osmand.plus.download.IndexItem;
+import net.osmand.plus.adapters.OsmandBaseExpandableListAdapter;
+import net.osmand.plus.plugins.OsmandPlugin;
+import net.osmand.plus.plugins.access.AccessibleToast;
 import net.osmand.util.Algorithms;
 import android.app.Activity;
 import android.app.AlertDialog;

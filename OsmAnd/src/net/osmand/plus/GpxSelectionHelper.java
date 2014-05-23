@@ -6,20 +6,23 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.osmand.IProgress;
+import net.osmand.plus.dao.SavingTrackHelper;
+import net.osmand.plus.utils.GPXUtilities;
+import net.osmand.plus.utils.GPXUtilities.GPXFile;
+import net.osmand.plus.utils.GPXUtilities.GPXTrackAnalysis;
+import net.osmand.plus.utils.GPXUtilities.Route;
+import net.osmand.plus.utils.GPXUtilities.Track;
+import net.osmand.plus.utils.GPXUtilities.TrkSegment;
+import net.osmand.plus.utils.GPXUtilities.WptPt;
+import net.osmand.plus.utils.GpxUiHelper;
+import net.osmand.plus.utils.OsmAndFormatter;
+import net.osmand.util.Algorithms;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import net.osmand.IProgress;
-import net.osmand.plus.GPXUtilities.GPXFile;
-import net.osmand.plus.GPXUtilities.GPXTrackAnalysis;
-import net.osmand.plus.GPXUtilities.Route;
-import net.osmand.plus.GPXUtilities.Track;
-import net.osmand.plus.GPXUtilities.TrkSegment;
-import net.osmand.plus.GPXUtilities.WptPt;
-import net.osmand.plus.activities.SavingTrackHelper;
-import net.osmand.plus.helpers.GpxUiHelper;
-import net.osmand.util.Algorithms;
 import android.graphics.Bitmap;
 
 public class GpxSelectionHelper {

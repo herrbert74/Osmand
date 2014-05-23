@@ -8,6 +8,13 @@ import java.util.ArrayList;
 
 import net.osmand.plus.GpxSelectionHelper;
 import net.osmand.plus.OsmandApplication;
+import net.osmand.plus.adapters.OsmandBaseExpandableListAdapter;
+import net.osmand.plus.plugins.access.AccessibleToast;
+import net.osmand.plus.utils.FavouritesDbHelper;
+import net.osmand.plus.utils.GPXUtilities;
+import net.osmand.plus.utils.OsmAndFormatter;
+import net.osmand.plus.utils.GPXUtilities.GPXFile;
+import net.osmand.plus.utils.GPXUtilities.WptPt;
 import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.R;
 import android.content.Context;

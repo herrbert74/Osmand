@@ -2,8 +2,8 @@ package net.osmand.plus.activities;
 
 import java.io.File;
 
-import net.osmand.plus.GPXUtilities.GPXFile;
 import net.osmand.plus.activities.LocalIndexHelper.LocalIndexType;
+import net.osmand.plus.utils.GPXUtilities.GPXFile;
 
 public class LocalIndexInfo {
 

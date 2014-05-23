@@ -2,6 +2,7 @@ package net.osmand.plus;
 
 import java.util.List;
 
+import net.osmand.plus.utils.FavouritesDbHelper;
 import android.app.backup.BackupAgentHelper;
 import android.app.backup.FileBackupHelper;
 import android.app.backup.SharedPreferencesBackupHelper;
