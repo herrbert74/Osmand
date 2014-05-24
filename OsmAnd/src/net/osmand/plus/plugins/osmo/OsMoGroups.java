@@ -12,6 +12,7 @@ import net.osmand.plus.R;
 import net.osmand.plus.plugins.osmo.OsMoGroupsStorage.OsMoDevice;
 import net.osmand.plus.plugins.osmo.OsMoGroupsStorage.OsMoGroup;
 import net.osmand.plus.plugins.osmo.OsMoTracker.OsmoTrackerListener;
+import net.osmand.plus.plugins.osmo.OsMoTracker.OsmoTrackerListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;

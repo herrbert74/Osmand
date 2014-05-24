@@ -1,4 +1,4 @@
-package net.osmand.plus.helpers;
+package net.osmand.plus.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
