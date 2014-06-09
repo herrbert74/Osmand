@@ -1,20 +1,5 @@
 package net.osmand.plus.helpers;
 
-import android.app.ProgressDialog;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.ParcelFileDescriptor;
-import android.provider.OpenableColumns;
-import android.widget.Toast;
-import net.osmand.IndexConstants;
-import net.osmand.access.AccessibleToast;
-import net.osmand.plus.GPXUtilities;
-import net.osmand.plus.OsmandApplication;
-import net.osmand.plus.R;
-import net.osmand.plus.activities.MapActivity;
-import net.osmand.plus.views.OsmandMapTileView;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,6 +10,22 @@ import java.io.UnsupportedEncodingException;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import net.osmand.IndexConstants;
+import net.osmand.plus.OsmandApplication;
+import net.osmand.plus.R;
+import net.osmand.plus.activities.MapActivity;
+import net.osmand.plus.plugins.access.AccessibleToast;
+import net.osmand.plus.utils.GPXUtilities;
+import net.osmand.plus.utils.Kml2Gpx;
+import net.osmand.plus.views.OsmandMapTileView;
+import android.app.ProgressDialog;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.ParcelFileDescriptor;
+import android.provider.OpenableColumns;
+import android.widget.Toast;
 
 /**
  * @author Koen Rabaey

@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import android.view.WindowManager;
 import net.londatiga.android.ActionItem;
 import net.londatiga.android.QuickAction;
 import net.osmand.AndroidUtils;
@@ -61,12 +60,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class MapActivityActions implements DialogProvider {
@@ -634,6 +637,27 @@ public class MapActivityActions implements DialogProvider {
 		}
 	}
 	
+	public ListAdapter createNavDrawerAdapter(ListView drawerListView) {
+		final ContextMenuAdapter cm = createOptionsMenu();
+		ListAdapter listAdapter ;
+		if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB){
+			listAdapter =
+				cm.createListAdapter(mapActivity, R.layout.list_menu_item, getMyApplication().getSettings().isLightContentMenu());
+		} else {
+			listAdapter =
+				cm.createListAdapter(mapActivity, R.layout.list_menu_item_native, getMyApplication().getSettings().isLightContentMenu());
+		}
+		drawerListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+	        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				OnContextMenuClick click = cm.getClickAdapter(position);
+				if (click != null) {
+					click.onContextMenuClick(cm.getItemId(position), position, false, null);
+				}
+	        }	
+		});
+		return listAdapter;
+	}
 	
 	public AlertDialog openOptionsMenuAsList() {
 		final ContextMenuAdapter cm = createOptionsMenu();
@@ -824,8 +848,7 @@ public class MapActivityActions implements DialogProvider {
 						.listen(new OnContextMenuClick() {
 
 							@Override
-							public void onContextMenuClick(int itemId, int pos, boolean isChecked,
-									DialogInterface dialog) {
+							public void onContextMenuClick(int itemId, int pos, boolean isChecked,	DialogInterface dialog) {
 								// animate moving on route
 								loc.getLocationSimulation().startStopRouteAnimation(mapActivity);
 							}

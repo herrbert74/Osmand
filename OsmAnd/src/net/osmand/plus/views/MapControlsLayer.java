@@ -18,6 +18,7 @@ import net.osmand.plus.views.controls.MapNavigateControl;
 import net.osmand.plus.views.controls.MapZoomControls;
 import net.osmand.plus.views.controls.RulerControl;
 import net.osmand.plus.views.controls.SmallMapMenuControls;
+import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PointF;
@@ -165,6 +166,7 @@ public class MapControlsLayer extends OsmandMapLayer {
 		}
 	}
 
+	@SuppressLint("WrongCall")
 	private void checkVisibilityAndDraw(boolean visibility, MapControls controls, Canvas canvas,
 			RotatedTileBox tileBox, DrawSettings nightMode) {
 		if(visibility != controls.isVisible()){

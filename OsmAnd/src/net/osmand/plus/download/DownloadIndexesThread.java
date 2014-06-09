@@ -32,6 +32,7 @@ import net.osmand.util.Algorithms;
 
 import org.apache.commons.logging.Log;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ActivityNotFoundException;
@@ -46,6 +47,7 @@ import android.os.StatFs;
 import android.view.View;
 import android.widget.Toast;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class DownloadIndexesThread {
 	private DownloadIndexActivity uiActivity = null;
 	private IndexFileList indexFiles = null;
@@ -375,7 +377,7 @@ public class DownloadIndexesThread {
 						String dt = uiActivity.getMyApplication().getResourceManager().getIndexFileNames().get(basemap.getTargetFileName());
 						if (!basemapExists || !Algorithms.objectEquals(dt, basemap.getDate(dateFormat))) {
 							List<DownloadEntry> downloadEntry = basemap
-									.createDownloadEntry(uiActivity.getMyApplication(), uiActivity.getType(),
+									.createDownloadEntry(uiActivity.getMyApplication(), DownloadActivityType.NORMAL_FILE,//uiactivity.downloadtype
 											new ArrayList<DownloadEntry>());
 							uiActivity.getEntriesToDownload().put(basemap, downloadEntry);
 							AccessibleToast.makeText(uiActivity, R.string.basemap_was_selected_to_download,

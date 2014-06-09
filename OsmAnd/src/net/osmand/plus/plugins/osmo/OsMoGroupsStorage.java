@@ -1,4 +1,4 @@
-package net.osmand.plus.osmo;
+package net.osmand.plus.plugins.osmo;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,7 +10,6 @@ import net.osmand.Location;
 import net.osmand.data.LatLon;
 import net.osmand.plus.OsmandSettings.OsmandPreference;
 import net.osmand.plus.R;
-import net.osmand.plus.osmo.OsMoGroupsStorage.OsMoGroup;
 
 import org.json.JSONArray;
 import org.json.JSONException;
