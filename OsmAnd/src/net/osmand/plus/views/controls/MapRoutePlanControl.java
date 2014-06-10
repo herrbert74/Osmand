@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-public class MapRoutePlanControl extends MapControls {
+public class MapRoutePlanControl extends MapControl {
 	private Button routePlanButton;
 	
 	
@@ -20,7 +20,7 @@ public class MapRoutePlanControl extends MapControls {
 	}
 	
 	@Override
-	public void showControls(FrameLayout parent) {
+	public void showControl(FrameLayout parent) {
 		routePlanButton = addButton(parent, R.string.info_button, R.drawable.map_btn_info);
 		routePlanButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -33,12 +33,12 @@ public class MapRoutePlanControl extends MapControls {
 	}
 
 	@Override
-	public void hideControls(FrameLayout layout) {
+	public void hideControl(FrameLayout layout) {
 		removeButton(layout, routePlanButton);
 	}
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
+	public void drawControl(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
 	}
 	
 	public int getWidth() {

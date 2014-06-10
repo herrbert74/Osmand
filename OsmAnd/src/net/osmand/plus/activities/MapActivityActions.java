@@ -689,7 +689,7 @@ public class MapActivityActions implements DialogProvider {
 		ContextMenuAdapter optionsMenuHelper = new ContextMenuAdapter(app);
 		
 		// 1. Where am I
-		optionsMenuHelper.item(R.string.where_am_i).
+		/*optionsMenuHelper.item(R.string.where_am_i).
 				icons(R.drawable.ic_action_gloc_dark, R.drawable.ic_action_gloc_light)
 				.listen(new OnContextMenuClick() {
 					@Override
@@ -701,7 +701,7 @@ public class MapActivityActions implements DialogProvider {
 						}
 					}
 				}).reg();
-
+*/
 		// 2-4. Navigation related (directions, mute, cancel navigation)
 		boolean muteVisible = routingHelper.getFinalLocation() != null && routingHelper.isFollowingMode();
 		if (muteVisible) {
@@ -731,6 +731,7 @@ public class MapActivityActions implements DialogProvider {
 					@Override
 						public void onContextMenuClick(int itemId, int pos, boolean isChecked, DialogInterface dialog) {
 							enterRoutePlanningMode(null, null);
+							mapActivity.getDrawerLayout().closeDrawers();
 						}
 				}).reg();
 		}

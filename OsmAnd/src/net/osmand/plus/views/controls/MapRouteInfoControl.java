@@ -44,7 +44,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class MapRouteInfoControl extends MapControls implements IRouteInformationListener {
+public class MapRouteInfoControl extends MapControl implements IRouteInformationListener {
 	private Button infoButton;
 	public static int directionInfo = -1;
 	public static boolean controlVisible = false;
@@ -84,7 +84,7 @@ public class MapRouteInfoControl extends MapControls implements IRouteInformatio
 	}
 	
 	@Override
-	public void showControls(FrameLayout parent) {
+	public void showControl(FrameLayout parent) {
 		infoButton = addButton(parent, R.string.route_info, R.drawable.map_btn_signpost);
 		controlVisible = true;
 		infoButton.setOnClickListener(new View.OnClickListener() {
@@ -245,13 +245,13 @@ public class MapRouteInfoControl extends MapControls implements IRouteInformatio
 	}
 	
 	@Override
-	public void hideControls(FrameLayout layout) {
+	public void hideControl(FrameLayout layout) {
 		removeButton(layout, infoButton);
 		controlVisible = false;
 	}
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
+	public void drawControl(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
 	}
 	
 	public int getWidth() {

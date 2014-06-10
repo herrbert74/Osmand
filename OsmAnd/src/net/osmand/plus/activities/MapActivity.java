@@ -60,6 +60,7 @@ import android.os.Message;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -121,6 +122,10 @@ public class MapActivity extends AccessibleActivity {
 		return notification;
 	}
 
+	public DrawerLayout getDrawerLayout(){
+		return mDrawerLayout;
+	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		app = getMyApplication();
@@ -205,6 +210,32 @@ public class MapActivity extends AccessibleActivity {
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 		// set up the drawer's list view with items and click listener
 		mDrawerList.setAdapter(mapActions.createNavDrawerAdapter(mDrawerList));
+		mDrawerLayout.setDrawerListener(new DrawerListener() {
+			
+			@Override
+			public void onDrawerStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onDrawerSlide(View arg0, float arg1) {
+				mDrawerList.setAdapter(mapActions.createNavDrawerAdapter(mDrawerList));
+				
+			}
+			
+			@Override
+			public void onDrawerOpened(View arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onDrawerClosed(View arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		//mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 		/*
 		        // enable ActionBar app icon to behave as action to toggle nav drawer

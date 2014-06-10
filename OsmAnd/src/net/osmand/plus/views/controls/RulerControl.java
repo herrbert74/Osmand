@@ -14,7 +14,7 @@ import android.os.Handler;
 import android.text.TextPaint;
 import android.widget.FrameLayout;
 
-public class RulerControl extends MapControls {
+public class RulerControl extends MapControl {
 
 		ShadowText cacheRulerText = null;
 		float cacheRulerZoom = 0;
@@ -36,7 +36,7 @@ public class RulerControl extends MapControls {
 		}
 		
 		@Override
-		protected void hideControls(FrameLayout layout) {
+		protected void hideControl(FrameLayout layout) {
 		}
 		
 		@Override
@@ -46,11 +46,11 @@ public class RulerControl extends MapControls {
 		}
 
 		@Override
-		protected void showControls(FrameLayout layout) {
+		protected void showControl(FrameLayout layout) {
 		}
 
 		@Override
-		public void onDraw(Canvas canvas, RotatedTileBox tb, DrawSettings nightMode) {
+		public void drawControl(Canvas canvas, RotatedTileBox tb, DrawSettings nightMode) {
 			if( (zoomControls.isVisible() && zoomControls.isShowZoomLevel()) || !mapActivity.getMyApplication().getSettings().SHOW_RULER.get()){
 				return;
 			}

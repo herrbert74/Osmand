@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-public class MapNavigateControl extends MapControls {
+public class MapNavigateControl extends MapControl {
 	private Button navigateButton;
 	private MapRouteInfoControl ri;
 	
@@ -24,7 +24,7 @@ public class MapNavigateControl extends MapControls {
 	}
 	
 	@Override
-	public void showControls(final FrameLayout parent) {
+	public void showControl(final FrameLayout parent) {
 		navigateButton = addButton(parent, R.string.get_directions, R.drawable.map_btn_navigate);
 		navigateButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -53,12 +53,12 @@ public class MapNavigateControl extends MapControls {
 	}
 
 	@Override
-	public void hideControls(FrameLayout layout) {
+	public void hideControl(FrameLayout layout) {
 		removeButton(layout, navigateButton);
 	}
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
+	public void drawControl(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
 	}
 	
 	public int getWidth() {

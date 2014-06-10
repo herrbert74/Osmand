@@ -15,7 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 
-public abstract class MapControls {
+public abstract class MapControl {
 
 	protected MapActivity mapActivity;
 	protected float scaleCoefficient;
@@ -30,7 +30,7 @@ public abstract class MapControls {
 	protected int width;
 	protected int height;
 	
-	public MapControls(MapActivity mapActivity, Handler showUIHandler, float scaleCoefficient) {
+	public MapControl(MapActivity mapActivity, Handler showUIHandler, float scaleCoefficient) {
 		this.mapActivity = mapActivity;
 		this.showUIHandler = showUIHandler;
 		this.scaleCoefficient = scaleCoefficient;
@@ -104,14 +104,14 @@ public abstract class MapControls {
 	
 	public final void show(FrameLayout layout) {
 		visible = true;
-		showControls(layout);
+		showControl(layout);
 	}
 	
 	public final void showWithDelay(final FrameLayout layout, final long delay) {
 		this.delayTime = System.currentTimeMillis() + delay;
 		if(!visible) {
 			visible = true;
-			showControls(layout);
+			showControl(layout);
 			runWithDelay(layout, delay);
 			mapActivity.getMapView().refreshMap();
 		}
@@ -122,15 +122,15 @@ public abstract class MapControls {
 			@Override
 			public void run() {
 				long ctime = System.currentTimeMillis();
-				if(MapControls.this.delayTime <= ctime) {
-					if (MapControls.this.delayTime != 0) {
-						MapControls.this.delayTime = 0;
+				if(MapControl.this.delayTime <= ctime) {
+					if (MapControl.this.delayTime != 0) {
+						MapControl.this.delayTime = 0;
 						visible = false;
-						hideControls(layout);
+						hideControl(layout);
 						mapActivity.getMapView().refreshMap();
 					}
 				} else {
-					runWithDelay(layout, MapControls.this.delayTime - ctime);
+					runWithDelay(layout, MapControl.this.delayTime - ctime);
 				}
 			}
 		}, delay);
@@ -139,14 +139,14 @@ public abstract class MapControls {
 	public final void hide(FrameLayout layout) {
 		if(this.delayTime == 0) {
 			visible = false;
-			hideControls(layout);
+			hideControl(layout);
 		}
 	}
 	
 	public final void forceHide(FrameLayout layout) {
 		delayTime = 0;
 		visible = false;
-		hideControls(layout);
+		hideControl(layout);
 		mapActivity.getMapView().refreshMap();
 	}
 	
@@ -158,12 +158,12 @@ public abstract class MapControls {
 	protected void initControls(FrameLayout layout) {
 	}
 
-	protected abstract void hideControls(FrameLayout layout);
+	protected abstract void hideControl(FrameLayout layout);
 	
-	protected abstract void showControls(FrameLayout layout);
+	protected abstract void showControl(FrameLayout layout);
 	
 
-	public abstract void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode);
+	public abstract void drawControl(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode);
 	
 	public boolean onSingleTap(PointF point, RotatedTileBox tileBox) {
 		return false;
