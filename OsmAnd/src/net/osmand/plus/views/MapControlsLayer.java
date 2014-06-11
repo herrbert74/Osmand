@@ -156,7 +156,7 @@ public class MapControlsLayer extends OsmandMapLayer {
 
 		// the last one to check other controls visibility
 
-		rulerControl.setVerticalMargin(vmargin);
+		//rulerControl.setVerticalMargin(vmargin);
 		checkVisibilityAndDraw(true, rulerControl, canvas, tileBox, nightMode);
 	}
 
@@ -166,7 +166,6 @@ public class MapControlsLayer extends OsmandMapLayer {
 		}
 	}
 
-	@SuppressLint("WrongCall")
 	private void checkVisibilityAndDraw(boolean visibility, MapControl control, Canvas canvas,
 			RotatedTileBox tileBox, DrawSettings nightMode) {
 		if (visibility != control.isVisible()) {

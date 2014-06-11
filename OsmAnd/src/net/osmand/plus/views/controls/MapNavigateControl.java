@@ -16,13 +16,13 @@ import android.widget.FrameLayout;
 public class MapNavigateControl extends MapControl {
 	private Button navigateButton;
 	private MapRouteInfoControl ri;
-	
-	
-	public MapNavigateControl(MapRouteInfoControl ri,  MapActivity mapActivity, Handler showUIHandler, float scaleCoefficient) {
+
+	public MapNavigateControl(MapRouteInfoControl ri, MapActivity mapActivity, Handler showUIHandler,
+			float scaleCoefficient) {
 		super(mapActivity, showUIHandler, scaleCoefficient);
 		this.ri = ri;
 	}
-	
+
 	@Override
 	public void showControl(final FrameLayout parent) {
 		navigateButton = addButton(parent, R.string.get_directions, R.drawable.map_btn_navigate);
@@ -31,12 +31,12 @@ public class MapNavigateControl extends MapControl {
 			public void onClick(View v) {
 				OsmandApplication app = mapActivity.getMyApplication();
 				RoutingHelper routingHelper = app.getRoutingHelper();
-				if(routingHelper.isFollowingMode()) {
+				if (routingHelper.isFollowingMode()) {
 					routingHelper.setRoutePlanningMode(false);
 					mapActivity.getMapViewTrackingUtilities().switchToRoutePlanningMode();
 				} else {
 					OsmandApplication ctx = mapActivity.getMyApplication();
-					if(!ctx.getTargetPointsHelper().checkPointToNavigateShort()) {
+					if (!ctx.getTargetPointsHelper().checkPointToNavigateShort()) {
 						ri.showDialog();
 					} else {
 						mapActivity.getMapViewTrackingUtilities().backToLocationImpl();
@@ -60,12 +60,12 @@ public class MapNavigateControl extends MapControl {
 	@Override
 	public void drawControl(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
 	}
-	
+
 	public int getWidth() {
 		if (width == 0) {
 			Drawable buttonDrawable = mapActivity.getResources().getDrawable(R.drawable.map_btn_navigate);
 			width = buttonDrawable.getMinimumWidth();
 		}
-		return width ;
+		return width;
 	}
 }
