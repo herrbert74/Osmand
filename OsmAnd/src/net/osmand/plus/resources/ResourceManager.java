@@ -437,6 +437,8 @@ public class ResourceManager {
 			regions.prepareFile(file.getAbsolutePath());
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -484,6 +486,8 @@ public class ResourceManager {
 				} catch (IOException e) {
 					log.error(e.getMessage(), e);
 				} catch (XmlPullParserException e) {
+					log.error(e.getMessage(), e);
+				} catch (Exception e) {
 					log.error(e.getMessage(), e);
 				}
 			}

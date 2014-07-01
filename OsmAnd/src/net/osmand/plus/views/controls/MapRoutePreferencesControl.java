@@ -52,7 +52,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class MapRoutePreferencesControl extends MapControls {
+public class MapRoutePreferencesControl extends MapControl {
 	private ImageButton settingsAppModeButton;
 	private OsmandSettings settings;
 	private int cachedId;
@@ -112,7 +112,7 @@ public class MapRoutePreferencesControl extends MapControls {
 	}
 	
 	@Override
-	public void showControls(FrameLayout parent) {
+	public void showControl(FrameLayout parent) {
 		settingsAppModeButton = addImageButton(parent, R.string.route_preferences, R.drawable.map_btn_plain);
 		cachedId = 0;
 		settingsAppModeButton.setOnClickListener(new View.OnClickListener() {
@@ -404,14 +404,14 @@ public class MapRoutePreferencesControl extends MapControls {
 	}
 
 	@Override
-	public void hideControls(FrameLayout layout) {
+	public void hideControl(FrameLayout layout) {
 		removeButton(layout, settingsAppModeButton);
 		layout.removeView(settingsAppModeButton);
 		mapActivity.accessibleContent.remove(settingsAppModeButton);
 	}
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
+	public void drawControl(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
 		int id = settings.getApplicationMode().getSmallIcon(false); // settingsAppModeButton.isPressed() || dialog != null
 		if(cachedId != id && settingsAppModeButton.getLeft() > 0) {
 			cachedId = id;

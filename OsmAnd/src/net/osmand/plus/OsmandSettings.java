@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
-
 import net.osmand.IndexConstants;
 import net.osmand.StateChangedListener;
 import net.osmand.data.LatLon;
@@ -29,6 +28,7 @@ import net.osmand.plus.plugins.access.RelativeDirectionStyle;
 import net.osmand.plus.render.RendererRegistry;
 import net.osmand.plus.routing.RouteProvider.RouteService;
 import net.osmand.render.RenderingRulesStorage;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.hardware.Sensor;
@@ -1116,6 +1116,7 @@ public class OsmandSettings {
 		return writableSecondaryStorage;
 	}
 	
+	@TargetApi(Build.VERSION_CODES.KITKAT)
 	public String getMatchingExternalFilesDir(String dir) {
 		// only API 19 !!
 		try {
@@ -1139,6 +1140,7 @@ public class OsmandSettings {
 		}
 	}
 
+	@TargetApi(Build.VERSION_CODES.KITKAT)
 	public List<String> getWritableSecondaryStorageDirectorys() {
 		// only API 19 !!
 		// primary external storage directory

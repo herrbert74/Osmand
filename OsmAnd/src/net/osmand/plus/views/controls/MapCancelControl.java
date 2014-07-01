@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-public class MapCancelControl extends MapControls {
+public class MapCancelControl extends MapControl {
 	private Button cancelButton;
 	
 	
@@ -20,7 +20,7 @@ public class MapCancelControl extends MapControls {
 	}
 	
 	@Override
-	public void showControls(FrameLayout parent) {
+	public void showControl(FrameLayout parent) {
 		cancelButton = addButton(parent, R.string.cancel_navigation, R.drawable.map_btn_cancel);
 		cancelButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -36,12 +36,12 @@ public class MapCancelControl extends MapControls {
 	}
 
 	@Override
-	public void hideControls(FrameLayout layout) {
+	public void hideControl(FrameLayout layout) {
 		removeButton(layout, cancelButton);
 	}
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
+	public void drawControl(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
 	}
 	
 	public int getWidth() {

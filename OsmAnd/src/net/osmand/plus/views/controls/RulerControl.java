@@ -14,7 +14,7 @@ import android.os.Handler;
 import android.text.TextPaint;
 import android.widget.FrameLayout;
 
-public class RulerControl extends MapControls {
+public class RulerControl extends MapControl {
 
 		ShadowText cacheRulerText = null;
 		float cacheRulerZoom = 0;
@@ -36,7 +36,7 @@ public class RulerControl extends MapControls {
 		}
 		
 		@Override
-		protected void hideControls(FrameLayout layout) {
+		protected void hideControl(FrameLayout layout) {
 		}
 		
 		@Override
@@ -46,11 +46,11 @@ public class RulerControl extends MapControls {
 		}
 
 		@Override
-		protected void showControls(FrameLayout layout) {
+		protected void showControl(FrameLayout layout) {
 		}
 
 		@Override
-		public void onDraw(Canvas canvas, RotatedTileBox tb, DrawSettings nightMode) {
+		public void drawControl(Canvas canvas, RotatedTileBox tb, DrawSettings nightMode) {
 			if( (zoomControls.isVisible() && zoomControls.isShowZoomLevel()) || !mapActivity.getMyApplication().getSettings().SHOW_RULER.get()){
 				return;
 			}
@@ -58,22 +58,27 @@ public class RulerControl extends MapControls {
 			// update cache
 			if (view.isZooming()) {
 				cacheRulerText = null;
-			} else if((tb.getZoom() + tb.getZoomScale()) != cacheRulerZoom ||
+			} 
+			//Drawable needs to be redrawn
+			else if((tb.getZoom() + tb.getZoomScale()) != cacheRulerZoom ||
 					Math.abs(tb.getCenterTileX() - cacheRulerTileX) +  Math.abs(tb.getCenterTileY() - cacheRulerTileY) > 1){
 				cacheRulerZoom = (tb.getZoom() + tb.getZoomScale());
 				cacheRulerTileX = tb.getCenterTileX();
 				cacheRulerTileY = tb.getCenterTileY();
-				final double dist = tb.getDistance(0, tb.getPixHeight() / 2, tb.getPixWidth(), tb.getPixHeight() / 2);
-				double pixDensity = tb.getPixWidth() / dist;
 				
-				double roundedDist = OsmAndFormatter.calculateRoundedDist(dist * screenRulerPercent, view.getApplication());
+				final double screenWidthInMeters = tb.getDistance(0, tb.getPixHeight() / 2, tb.getPixWidth(), tb.getPixHeight() / 2);
+				double pixToMeterRatio = tb.getPixWidth() / screenWidthInMeters;
 				
-				int cacheRulerDistPix = (int) (pixDensity * roundedDist);
-				cacheRulerText = ShadowText.create(OsmAndFormatter.getFormattedDistance((float) roundedDist, view.getApplication()));
+				double roundedRulerLengthInMeters = OsmAndFormatter.calculateRoundedDist(screenWidthInMeters * screenRulerPercent, view.getApplication());
+				
+				int rulerLengthInPx = (int) (pixToMeterRatio * roundedRulerLengthInMeters);
+				cacheRulerText = ShadowText.create(OsmAndFormatter.getFormattedDistance((float) roundedRulerLengthInMeters, view.getApplication()));
 				cacheRulerTextLen = rulerTextPaint.measureText(cacheRulerText.getText());
 				Rect bounds = rulerDrawable.getBounds();
-				bounds.right = (int) (view.getWidth() - 7 * scaleCoefficient);
-				bounds.left = bounds.right - cacheRulerDistPix;
+				/*bounds.right = (int) (view.getWidth() - 7 * scaleCoefficient);
+				bounds.left = bounds.right - cacheRulerDistPix;*/
+				bounds.left = (int) (7 * scaleCoefficient);
+				bounds.right = bounds.left + rulerLengthInPx;
 				rulerDrawable.setBounds(bounds);
 				rulerDrawable.invalidateSelf();
 			} 

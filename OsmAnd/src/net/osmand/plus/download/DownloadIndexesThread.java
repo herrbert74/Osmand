@@ -32,6 +32,7 @@ import net.osmand.util.Algorithms;
 
 import org.apache.commons.logging.Log;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ActivityNotFoundException;
@@ -46,6 +47,7 @@ import android.os.StatFs;
 import android.view.View;
 import android.widget.Toast;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class DownloadIndexesThread {
 	private DownloadIndexActivity uiActivity = null;
 	private IndexFileList indexFiles = null;

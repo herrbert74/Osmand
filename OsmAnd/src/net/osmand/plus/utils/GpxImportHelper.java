@@ -33,6 +33,8 @@ import android.os.AsyncTask;
 import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
 import android.widget.Toast;
+import android.provider.OpenableColumns;
+import android.widget.Toast;
 
 /**
  * @author Koen Rabaey

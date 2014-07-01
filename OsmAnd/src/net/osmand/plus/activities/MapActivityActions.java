@@ -68,6 +68,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -731,6 +732,28 @@ public class MapActivityActions implements DialogProvider {
 		}
 	}
 	
+	public ListAdapter createNavDrawerAdapter(ListView drawerListView) {
+		final ContextMenuAdapter cm = createOptionsMenu();
+		ListAdapter listAdapter ;
+		if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB){
+			listAdapter =
+				cm.createListAdapter(mapActivity, R.layout.list_menu_item, getMyApplication().getSettings().isLightContentMenu());
+		} else {
+			listAdapter =
+				cm.createListAdapter(mapActivity, R.layout.list_menu_item_native, getMyApplication().getSettings().isLightContentMenu());
+		}
+		drawerListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+	        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				OnContextMenuClick click = cm.getClickAdapter(position);
+				if (click != null) {
+					click.onContextMenuClick(cm.getItemId(position), position, false, null);
+					mapActivity.toggleDrawer();
+				}
+	        }	
+		});
+		return listAdapter;
+	}
 	
 	public AlertDialog openOptionsMenuAsList() {
 		final ContextMenuAdapter cm = createOptionsMenu();
@@ -762,7 +785,7 @@ public class MapActivityActions implements DialogProvider {
 		ContextMenuAdapter optionsMenuHelper = new ContextMenuAdapter(app);
 		
 		// 1. Where am I
-		optionsMenuHelper.item(R.string.where_am_i).
+		/*optionsMenuHelper.item(R.string.where_am_i).
 				icons(R.drawable.ic_action_gloc_dark, R.drawable.ic_action_gloc_light)
 				.listen(new OnContextMenuClick() {
 					@Override
@@ -774,7 +797,7 @@ public class MapActivityActions implements DialogProvider {
 						}
 					}
 				}).reg();
-
+*/
 		// 2-4. Navigation related (directions, mute, cancel navigation)
 		boolean muteVisible = routingHelper.getFinalLocation() != null && routingHelper.isFollowingMode();
 		if (muteVisible) {
@@ -804,6 +827,7 @@ public class MapActivityActions implements DialogProvider {
 					@Override
 						public void onContextMenuClick(int itemId, int pos, boolean isChecked, DialogInterface dialog) {
 							enterRoutePlanningMode(null, null);
+							mapActivity.getDrawerLayout().closeDrawers();
 						}
 				}).reg();
 		}
@@ -921,8 +945,7 @@ public class MapActivityActions implements DialogProvider {
 						.listen(new OnContextMenuClick() {
 
 							@Override
-							public void onContextMenuClick(int itemId, int pos, boolean isChecked,
-									DialogInterface dialog) {
+							public void onContextMenuClick(int itemId, int pos, boolean isChecked,	DialogInterface dialog) {
 								// animate moving on route
 								loc.getLocationSimulation().startStopRouteAnimation(mapActivity);
 							}

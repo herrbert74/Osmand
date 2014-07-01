@@ -30,7 +30,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-public class MapZoomControls extends MapControls {
+public class MapZoomControls extends MapControl {
 	private static final int SHOW_ZOOM_LEVEL_MSG_ID = OsmAndConstants.UI_HANDLER_MAP_CONTROLS + 1;
 	private static final int SHOW_ZOOM_BUTTON_MSG_ID = OsmAndConstants.UI_HANDLER_MAP_CONTROLS + 2;
 	private static final int SHOW_ZOOM_LEVEL_DELAY = 1000;
@@ -66,7 +66,7 @@ public class MapZoomControls extends MapControls {
 
 	
 	@Override
-	protected void showControls(FrameLayout parent) {
+	protected void showControl(FrameLayout parent) {
 		int minimumWidth = view.getResources().getDrawable(R.drawable.map_zoom_in).getMinimumWidth();
 		int minimumHeight = view.getResources().getDrawable(R.drawable.map_zoom_in).getMinimumWidth();
 		vmargin = 0;
@@ -111,7 +111,7 @@ public class MapZoomControls extends MapControls {
 	}
 
 	@Override
-	public void hideControls(FrameLayout layout) {
+	public void hideControl(FrameLayout layout) {
 		removeButton(layout, zoomInButton);
 		removeButton(layout, zoomOutButton);
 	}
@@ -148,7 +148,7 @@ public class MapZoomControls extends MapControls {
 	}
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
+	public void drawControl(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
 		BaseMapLayer mainLayer = view.getMainLayer();
 		boolean zoomInEnabled = mainLayer != null && tileBox.getZoom() < mainLayer.getMaximumShownMapZoom();
 		boolean zoomOutEnabled = mainLayer != null && tileBox.getZoom() > mainLayer.getMinimumShownMapZoom();

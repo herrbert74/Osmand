@@ -30,7 +30,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-public class MapNavigateControl extends MapControls {
+public class MapNavigateControl extends MapControl {
 	private Button navigateButton;
 	private MapRouteInfoControl ri;
 	private Runnable delayStart;
@@ -39,9 +39,9 @@ public class MapNavigateControl extends MapControls {
 	private TextPaint counterTextPaint;
 	private Paint bitmapPaint;
 	private static long startCounter = 0; 
-	
-	
-	public MapNavigateControl(MapRouteInfoControl ri,  MapActivity mapActivity, Handler showUIHandler, float scaleCoefficient) {
+
+	public MapNavigateControl(MapRouteInfoControl ri, MapActivity mapActivity, Handler showUIHandler,
+			float scaleCoefficient) {
 		super(mapActivity, showUIHandler, scaleCoefficient);
 		this.ri = ri;
 		counterTextPaint = new TextPaint();
@@ -49,7 +49,7 @@ public class MapNavigateControl extends MapControls {
 		counterTextPaint.setAntiAlias(true);
 		counterTextPaint.setFakeBoldText(true);
 	}
-	
+
 	
 	public void startCounter() {
 		OsmandSettings settings = mapActivity.getMyApplication().getSettings();
@@ -124,13 +124,12 @@ public class MapNavigateControl extends MapControls {
 		bitmapPaint = new Paint();
 	}
 	@Override
-	public void hideControls(FrameLayout layout) {
 		removeButton(layout, navigateButton);
 		stopCounter();
 	}
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
+	public void drawControl(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
 		if(!mapActivity.getRoutingHelper().isFollowingMode()) {
 			drawCount(canvas, tileBox);
 		}
@@ -214,13 +213,13 @@ public class MapNavigateControl extends MapControls {
 			canvas.drawBitmap(mapMagnifier, null, new Rect(left, top, left + size * 2, top + size * 2), bitmapPaint);
 		}
 	}
-	
+
 	public int getWidth() {
 		if (width == 0) {
 			Drawable buttonDrawable = mapActivity.getResources().getDrawable(R.drawable.map_btn_navigate);
 			width = buttonDrawable.getMinimumWidth();
 		}
-		return width ;
+		return width;
 	}
 
 
