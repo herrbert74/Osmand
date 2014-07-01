@@ -122,10 +122,10 @@ public class MapActivity extends AccessibleActivity {
 		return notification;
 	}
 
-	public DrawerLayout getDrawerLayout(){
+	public DrawerLayout getDrawerLayout() {
 		return mDrawerLayout;
 	}
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		app = getMyApplication();
@@ -211,29 +211,29 @@ public class MapActivity extends AccessibleActivity {
 		// set up the drawer's list view with items and click listener
 		mDrawerList.setAdapter(mapActions.createNavDrawerAdapter(mDrawerList));
 		mDrawerLayout.setDrawerListener(new DrawerListener() {
-			
+
 			@Override
 			public void onDrawerStateChanged(int arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void onDrawerSlide(View arg0, float arg1) {
 				mDrawerList.setAdapter(mapActions.createNavDrawerAdapter(mDrawerList));
-				
+
 			}
-			
+
 			@Override
 			public void onDrawerOpened(View arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void onDrawerClosed(View arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 		//mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -265,39 +265,22 @@ public class MapActivity extends AccessibleActivity {
 
 	}
 
-	private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
-
-    private void selectItem(int position) {
-/*        // update the main content by replacing fragments
-        Fragment fragment = new PlanetFragment();
-        Bundle args = new Bundle();
-        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-        fragment.setArguments(args);
-
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-
-        // update selected item and title, then close the drawer
-        mDrawerList.setItemChecked(position, true);
-        setTitle(mPlanetTitles[position]);
-        mDrawerLayout.closeDrawer(mDrawerList);
-  */
-    	mDrawerList.getAdapter();
-    }
-  
+	public void toggleDrawer(){
+		if (mDrawerLayout.isDrawerOpen(Gravity.LEFT))
+			mDrawerLayout.closeDrawers();
+		else{
+			mDrawerLayout.openDrawer(Gravity.LEFT);
+		}
+	}
+	
 	public void addLockView(FrameLayout lockView) {
 		this.lockView = lockView;
 	}
 
 	private void createProgressBarForRouting() {
 		FrameLayout parent = (FrameLayout) mapView.getParent();
-		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
-				Gravity.CENTER_HORIZONTAL | Gravity.TOP);
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, Gravity.CENTER_HORIZONTAL | Gravity.TOP);
 		DisplayMetrics dm = getResources().getDisplayMetrics();
 		params.topMargin = (int) (60 * dm.density);
 		final ProgressBar pb = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
@@ -384,8 +367,8 @@ public class MapActivity extends AccessibleActivity {
 		TargetPointsHelper targets = app.getTargetPointsHelper();
 		RoutingHelper routingHelper = app.getRoutingHelper();
 		if (routingHelper.isFollowingMode()
-				&& (!Algorithms.objectEquals(targets.getPointToNavigate(), routingHelper.getFinalLocation()) || !Algorithms.objectEquals(
-						targets.getIntermediatePoints(), routingHelper.getIntermediatePoints()))) {
+				&& (!Algorithms.objectEquals(targets.getPointToNavigate(), routingHelper.getFinalLocation()) || !Algorithms
+						.objectEquals(targets.getIntermediatePoints(), routingHelper.getIntermediatePoints()))) {
 			targets.updateRoutingHelper();
 		}
 		app.getLocationProvider().resumeAllUpdates();
@@ -445,14 +428,17 @@ public class MapActivity extends AccessibleActivity {
 								final double lat = Double.valueOf(matcher.group(1));
 								final double lon = Double.valueOf(matcher.group(2));
 
-								getMyApplication().getTargetPointsHelper().navigateToPoint(new LatLon(lat, lon), false, -1);
+								getMyApplication().getTargetPointsHelper().navigateToPoint(new LatLon(lat, lon), false,
+										-1);
 								getMapActions().enterRoutePlanningMode(null, null);
 							} catch (NumberFormatException e) {
-								AccessibleToast.makeText(this, getString(R.string.navigation_intent_invalid, schemeSpecificPart),
+								AccessibleToast.makeText(this,
+										getString(R.string.navigation_intent_invalid, schemeSpecificPart),
 										Toast.LENGTH_LONG).show(); //$NON-NLS-1$
 							}
 						} else {
-							AccessibleToast.makeText(this, getString(R.string.navigation_intent_invalid, schemeSpecificPart),
+							AccessibleToast.makeText(this,
+									getString(R.string.navigation_intent_invalid, schemeSpecificPart),
 									Toast.LENGTH_LONG).show(); //$NON-NLS-1$
 						}
 						setIntent(null);
@@ -532,7 +518,8 @@ public class MapActivity extends AccessibleActivity {
 			mapActions.openOptionsMenuAsList();
 			return true;
 		} else if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getRepeatCount() == 0) {
-			Intent newIntent = new Intent(MapActivity.this, getMyApplication().getAppCustomization().getSearchActivity());
+			Intent newIntent = new Intent(MapActivity.this, getMyApplication().getAppCustomization()
+					.getSearchActivity());
 			// causes wrong position caching:  newIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			LatLon loc = getMapLocation();
 			newIntent.putExtra(SearchActivity.SEARCH_LAT, loc.getLatitude());
@@ -540,7 +527,8 @@ public class MapActivity extends AccessibleActivity {
 			startActivity(newIntent);
 			newIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			return true;
-		} else if (!app.getRoutingHelper().isFollowingMode() && OsmandPlugin.getEnabledPlugin(AccessibilityPlugin.class) != null) {
+		} else if (!app.getRoutingHelper().isFollowingMode()
+				&& OsmandPlugin.getEnabledPlugin(AccessibilityPlugin.class) != null) {
 			// Find more appropriate plugin for it?
 			if (keyCode == KeyEvent.KEYCODE_VOLUME_UP && event.getRepeatCount() == 0) {
 				if (mapView.isZooming()) {
@@ -704,8 +692,8 @@ public class MapActivity extends AccessibleActivity {
 				changeZoom(1);
 				return true;
 			}
-		} else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT || keyCode == KeyEvent.KEYCODE_DPAD_DOWN
-				|| keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+		} else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT
+				|| keyCode == KeyEvent.KEYCODE_DPAD_DOWN || keyCode == KeyEvent.KEYCODE_DPAD_UP) {
 			int dx = keyCode == KeyEvent.KEYCODE_DPAD_RIGHT ? 15 : (keyCode == KeyEvent.KEYCODE_DPAD_LEFT ? -15 : 0);
 			int dy = keyCode == KeyEvent.KEYCODE_DPAD_DOWN ? 15 : (keyCode == KeyEvent.KEYCODE_DPAD_UP ? -15 : 0);
 			final RotatedTileBox tb = mapView.getCurrentRotatedTileBox();
@@ -755,7 +743,8 @@ public class MapActivity extends AccessibleActivity {
 		Intent intent = getIntent();
 		if (intent != null && intent.getData() != null) {
 			Uri data = intent.getData();
-			if ("http".equalsIgnoreCase(data.getScheme()) && "download.osmand.net".equals(data.getHost()) && "/go".equals(data.getPath())) {
+			if ("http".equalsIgnoreCase(data.getScheme()) && "download.osmand.net".equals(data.getHost())
+					&& "/go".equals(data.getPath())) {
 				String lat = data.getQueryParameter("lat");
 				String lon = data.getQueryParameter("lon");
 				if (lat != null && lon != null) {
@@ -784,8 +773,8 @@ public class MapActivity extends AccessibleActivity {
 	}
 
 	public static void launchMapActivityMoveToTop(Context activity) {
-		Intent newIntent = new Intent(activity, ((OsmandApplication) activity.getApplicationContext()).getAppCustomization()
-				.getMapActivity());
+		Intent newIntent = new Intent(activity, ((OsmandApplication) activity.getApplicationContext())
+				.getAppCustomization().getMapActivity());
 		newIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		activity.startActivity(newIntent);
 	}

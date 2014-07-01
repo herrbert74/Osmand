@@ -653,6 +653,7 @@ public class MapActivityActions implements DialogProvider {
 				OnContextMenuClick click = cm.getClickAdapter(position);
 				if (click != null) {
 					click.onContextMenuClick(cm.getItemId(position), position, false, null);
+					mapActivity.toggleDrawer();
 				}
 	        }	
 		});

@@ -15,6 +15,7 @@ import net.osmand.plus.views.controls.MapRouteInfoControl;
 import net.osmand.plus.views.controls.MapRoutePlanControl;
 import net.osmand.plus.views.controls.MapRoutePreferencesControl;
 import net.osmand.plus.views.controls.MapZoomControls;
+import net.osmand.plus.views.controls.NavDrawerIndicatorControl;
 import net.osmand.plus.views.controls.RulerControl;
 import net.osmand.plus.views.controls.WhereIAmControl;
 import android.annotation.SuppressLint;
@@ -42,6 +43,7 @@ public class MapControlsLayer extends OsmandMapLayer {
 	private WhereIAmControl whereIAmControl;
 	//private MapMenuControls mapMenuControls;
 	private RulerControl rulerControl;
+	private NavDrawerIndicatorControl navDrawerIndicatorControl;
 
 	//private SmallMapMenuControls mapSmallMenuControls;
 	private MapCancelControl mapCancelNavigationControl;
@@ -94,6 +96,8 @@ public class MapControlsLayer extends OsmandMapLayer {
 				leftGravity);
 		whereIAmControl = init(new WhereIAmControl(mapActivity, showUIHandler, scaleCoefficient), parent,
 				rightGravity);
+		navDrawerIndicatorControl = init(new NavDrawerIndicatorControl(mapActivity, showUIHandler, scaleCoefficient), parent,
+				leftGravity);
 		//mapRoutePlanControl.setMargin(mapMenuControls.getWidth());
 		//mapCancelNavigationControl.setMargin(mapSmallMenuControls.getWidth());
 		mapInfoNavigationControl.setMargin(/*mapSmallMenuControls.getWidth() +*/ mapCancelNavigationControl.getWidth());
@@ -138,9 +142,11 @@ public class MapControlsLayer extends OsmandMapLayer {
 			forceHideView(mapRoutePlanControl);
 		}
 		int vmargin = mapNavigationControl.isVisible() || zoomControls.isVisible() ? zoomControls.getHeight() : 0;
-		zoomControls.setVerticalMargin( 200);
+		whereIAmControl.setVerticalMargin(200);
+		navDrawerIndicatorControl.setVerticalMargin(300);
 		checkVisibilityAndDraw(showDefaultButtons, zoomControls, canvas, tileBox, nightMode);
 		checkVisibilityAndDraw(showDefaultButtons, whereIAmControl, canvas, tileBox, nightMode);
+		checkVisibilityAndDraw(showDefaultButtons, navDrawerIndicatorControl, canvas, tileBox, nightMode);
 		//checkVisibilityAndDraw(showDefaultButtons, mapMenuControls, canvas, tileBox, nightMode);
 		// show only on touch
 		checkVisibilityAndDraw(false, mapRoutePlanControl, canvas, tileBox, nightMode);
