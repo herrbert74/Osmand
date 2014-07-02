@@ -102,7 +102,7 @@ public class MapNavigateControl extends MapControl {
 	}
 	
 	@Override
-	public void showControls(final FrameLayout parent) {
+	public void showControl(final FrameLayout parent) {
 		navigateButton = addButton(parent, R.string.get_directions, R.drawable.map_btn_navigate);
 		navigateButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -124,6 +124,7 @@ public class MapNavigateControl extends MapControl {
 		bitmapPaint = new Paint();
 	}
 	@Override
+	public void hideControl(FrameLayout layout) {
 		removeButton(layout, navigateButton);
 		stopCounter();
 	}

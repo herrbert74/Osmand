@@ -202,14 +202,15 @@ public class MapInfoLayer extends OsmandMapLayer {
 		mapInfoControls.registerSideWidget(alt, R.drawable.widget_altitude, R.string.map_widget_altitude, "altitude",
 				false, 20);
 		TextInfoWidget plainTime = ric.createPlainTimeControl(map, paintText, paintSubText);
-		mapInfoControls.registerSideWidget(plainTime, R.drawable.widget_time_to_distance, R.string.map_widget_plain_time, "plain_time", false, 25);
+		mapInfoControls.registerSideWidget(plainTime, R.drawable.widget_time_to_distance,
+				R.string.map_widget_plain_time, "plain_time", false, 25);
 
 		// Top widgets
 		ImageViewWidget compassView = mic.createCompassView(map);
 		mapInfoControls.registerTopWidget(compassView, R.drawable.widget_compass, R.string.map_widget_compass,
 				"compass", MapWidgetRegistry.LEFT_CONTROL, 5);
 		View config = createConfiguration();
-		mapInfoControls.registerTopWidget(config, R.drawable.widget_config, R.string.map_widget_config, "config", MapWidgetRegistry.RIGHT_CONTROL, 10);
+		mapInfoControls.registerTopWidget(config, R.drawable.widget_config, R.string.map_widget_config, "config",
 				MapWidgetRegistry.RIGHT_CONTROL, 10).required(ApplicationMode.DEFAULT);
 		mapInfoControls.registerTopWidget(monitoringServices.createMonitoringWidget(view, map),
 				R.drawable.widget_monitoring, R.string.map_widget_monitoring_services, "monitoring_services",
@@ -624,7 +625,6 @@ public class MapInfoLayer extends OsmandMapLayer {
 	private View createConfiguration() {
 		final OsmandMapTileView view = map.getMapView();
 
-			
 		final Drawable config = view.getResources().getDrawable(R.drawable.map_config);
 		final Drawable configWhite = view.getResources().getDrawable(R.drawable.map_config_white);
 		ImageViewWidget configuration = new ImageViewWidget(map) {
@@ -641,10 +641,10 @@ public class MapInfoLayer extends OsmandMapLayer {
 				return false;
 			}
 		};
-		configuration.setOnClickListener(new View.OnClickListener(){
+		configuration.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				openViewConfigureDialog();				
+				openViewConfigureDialog();
 			}
 		});
 		configuration.setImageDrawable(config);
@@ -710,17 +710,17 @@ public class MapInfoLayer extends OsmandMapLayer {
 		return defValue;
 	}
 
-	private UpdateFrameLayout createBackToLocation(MapInfoWidgetsFactory mic){
+	private UpdateFrameLayout createBackToLocation(MapInfoWidgetsFactory mic) {
 		progressBar = new View(view.getContext());
 		progressBar.setPadding((int) (5 * scaleCoefficient), 0, (int) (5 * scaleCoefficient), 0);
 		final ImageViewWidget widget = mic.createBackToLocation(map);
 		Drawable backToLoc = map.getResources().getDrawable(R.drawable.la_backtoloc_disabled);
-		UpdateFrameLayout layout = new UpdateFrameLayout(view.getContext(), widget) ;
+		UpdateFrameLayout layout = new UpdateFrameLayout(view.getContext(), widget);
 		FrameLayout.LayoutParams fparams;
-		fparams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+		fparams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
+				FrameLayout.LayoutParams.WRAP_CONTENT);
 		layout.addView(widget, fparams);
-		fparams = new FrameLayout.LayoutParams((int) (backToLoc.getMinimumWidth() ),
-				backToLoc.getMinimumHeight());
+		fparams = new FrameLayout.LayoutParams((int) (backToLoc.getMinimumWidth()), backToLoc.getMinimumHeight());
 		fparams.setMargins((int) (5 * scaleCoefficient), 0, 0, 0);
 		layout.addView(progressBar, fparams);
 		layout.setOnClickListener(new View.OnClickListener() {

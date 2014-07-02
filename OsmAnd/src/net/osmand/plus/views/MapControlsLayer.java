@@ -91,7 +91,7 @@ public class MapControlsLayer extends OsmandMapLayer {
 				leftGravity);
 		// calculate route buttons
 		//mapSmallMenuControls = init(new SmallMapMenuControls(mapActivity, showUIHandler, scaleCoefficient), parent,
-				//leftGravity);
+		//leftGravity);
 		mapCancelNavigationControl = init(new MapCancelControl(mapActivity, showUIHandler, scaleCoefficient), parent,
 				leftGravity);
 		mapInfoNavigationControl = init(new MapRouteInfoControl(mapActivity.getMapLayers().getContextMenuLayer(),
@@ -102,24 +102,23 @@ public class MapControlsLayer extends OsmandMapLayer {
 				rightGravity);
 		rulerControl = init(new RulerControl(zoomControls, mapActivity, showUIHandler, scaleCoefficient), parent,
 				leftGravity);
-		whereIAmControl = init(new WhereIAmControl(mapActivity, showUIHandler, scaleCoefficient), parent,
-				rightGravity);
-		navDrawerIndicatorControl = init(new NavDrawerIndicatorControl(mapActivity, showUIHandler, scaleCoefficient), parent,
-				leftGravity);
+		whereIAmControl = init(new WhereIAmControl(mapActivity, showUIHandler, scaleCoefficient), parent, rightGravity);
+		navDrawerIndicatorControl = init(new NavDrawerIndicatorControl(mapActivity, showUIHandler, scaleCoefficient),
+				parent, leftGravity);
 		//mapRoutePlanControl.setMargin(mapMenuControls.getWidth());
 		//mapCancelNavigationControl.setMargin(mapSmallMenuControls.getWidth());
-		mapInfoNavigationControl.setMargin(/*mapSmallMenuControls.getWidth() +*/ mapCancelNavigationControl.getWidth());
+		mapInfoNavigationControl.setMargin(/*mapSmallMenuControls.getWidth() +*/mapCancelNavigationControl.getWidth());
 		mapAppModeControl.setMargin(mapNavigationControl.getWidth());
 
 		initTransparencyBar(view, parent);
 	}
 
-	private <T extends MapControl> T init(T c, FrameLayout parent, int gravity) {
+	private <T extends MapControl> T init(final T c, FrameLayout parent, int gravity) {
 		c.setGravity(gravity);
 		c.init(parent);
 		allControls.add(c);
 		c.setNotifyClick(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				notifyClicked(c);
@@ -128,8 +127,8 @@ public class MapControlsLayer extends OsmandMapLayer {
 		return c;
 	}
 
-	protected void notifyClicked(MapControls m) {
-		if(mapNavigationControl != null) {
+	protected void notifyClicked(MapControl m) {
+		if (mapNavigationControl != null) {
 			mapNavigationControl.stopCounter();
 		}
 	}
@@ -156,7 +155,8 @@ public class MapControlsLayer extends OsmandMapLayer {
 			routePlanningMode = true;
 		}
 		boolean routeFollowingMode = !routePlanningMode && rh.isFollowingMode();
-		boolean showDefaultButtons = !routePlanningMode && (!routeFollowingMode || settings.SHOW_ZOOM_BUTTONS_NAVIGATION.get());
+		boolean showDefaultButtons = !routePlanningMode
+				&& (!routeFollowingMode || settings.SHOW_ZOOM_BUTTONS_NAVIGATION.get());
 		if (routePlanningMode) {
 			forceHideView(zoomControls);
 			//forceHideView(mapMenuControls);
@@ -180,7 +180,6 @@ public class MapControlsLayer extends OsmandMapLayer {
 		checkVisibilityAndDraw(showRouteCalculationControls, mapAppModeControl, canvas, tileBox, nightMode);
 		checkVisibilityAndDraw(showRouteCalculationControls, mapNavigationControl, canvas, tileBox, nightMode);
 		checkVisibilityAndDraw(showRouteCalculationControls, zoomSideControls, canvas, tileBox, nightMode);
-		
 
 		// the last one to check other controls visibility
 
@@ -194,8 +193,8 @@ public class MapControlsLayer extends OsmandMapLayer {
 		}
 	}
 
-	private void checkVisibilityAndDraw(boolean visibility, MapControl control, Canvas canvas,
-			RotatedTileBox tileBox, DrawSettings nightMode) {
+	private void checkVisibilityAndDraw(boolean visibility, MapControl control, Canvas canvas, RotatedTileBox tileBox,
+			DrawSettings nightMode) {
 		if (visibility != control.isVisible()) {
 			if (visibility) {
 				control.show((FrameLayout) mapActivity.getMapView().getParent());
@@ -216,25 +215,26 @@ public class MapControlsLayer extends OsmandMapLayer {
 
 	@Override
 	public boolean onSingleTap(PointF point, RotatedTileBox tileBox) {
-		for(MapControls m : allControls) {
-			if(m.isVisible() && m.onSingleTap(point, tileBox)){
+		for (MapControl m : allControls) {
+			if (m.isVisible() && m.onSingleTap(point, tileBox)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean onTouchEvent(MotionEvent event, RotatedTileBox tileBox) {
 		if (!mapActivity.getRoutingHelper().isRoutePlanningMode() && mapActivity.getRoutingHelper().isFollowingMode()) {
-			if(!settings.SHOW_ZOOM_BUTTONS_NAVIGATION.get()) {
+			if (!settings.SHOW_ZOOM_BUTTONS_NAVIGATION.get()) {
 				zoomControls.showWithDelay((FrameLayout) mapActivity.getMapView().getParent(), TIMEOUT_TO_SHOW_BUTTONS);
-			//mapMenuControls.showWithDelay((FrameLayout) mapActivity.getMapView().getParent(), TIMEOUT_TO_SHOW_BUTTONS);
-			mapRoutePlanControl.showWithDelay((FrameLayout) mapActivity.getMapView().getParent(),
-					TIMEOUT_TO_SHOW_BUTTONS);
+				//mapMenuControls.showWithDelay((FrameLayout) mapActivity.getMapView().getParent(), TIMEOUT_TO_SHOW_BUTTONS);
+				mapRoutePlanControl.showWithDelay((FrameLayout) mapActivity.getMapView().getParent(),
+						TIMEOUT_TO_SHOW_BUTTONS);
+			}
 		}
 		for (MapControl m : allControls) {
-			if(m.isVisible() && m.onTouchEvent(event, tileBox)){
+			if (m.isVisible() && m.onTouchEvent(event, tileBox)) {
 				return true;
 			}
 		}
