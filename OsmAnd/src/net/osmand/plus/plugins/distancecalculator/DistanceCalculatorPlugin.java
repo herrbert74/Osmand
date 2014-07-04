@@ -517,7 +517,7 @@ public class DistanceCalculatorPlugin extends OsmandPlugin {
 			}
 		}
 		@Override
-		public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {
+		public void drawLayer(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {
 			
 		}
 

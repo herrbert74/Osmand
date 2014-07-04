@@ -142,7 +142,7 @@ public class RouteLayer extends OsmandMapLayer {
 	}
 	
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {}
+	public void drawLayer(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {}
 
 
 	private void drawSegment(RotatedTileBox tb, Canvas canvas) {

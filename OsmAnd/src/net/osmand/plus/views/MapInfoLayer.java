@@ -572,7 +572,7 @@ public class MapInfoLayer extends OsmandMapLayer {
 	}
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings drawSettings) {
+	public void drawLayer(Canvas canvas, RotatedTileBox tileBox, DrawSettings drawSettings) {
 		updateColorShadowsOfText(drawSettings);
 		// update data on draw
 		rightStack.updateInfo(drawSettings);

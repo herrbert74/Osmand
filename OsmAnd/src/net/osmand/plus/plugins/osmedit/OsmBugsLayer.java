@@ -140,7 +140,7 @@ public class OsmBugsLayer extends OsmandMapLayer implements IContextMenuProvider
 		}
 	}
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {
+	public void drawLayer(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {
 		
 	}
 	

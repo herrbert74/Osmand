@@ -73,7 +73,7 @@ public class MapVectorLayer extends BaseMapLayer {
 	
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tilesRect, DrawSettings drawSettings) {
+	public void drawLayer(Canvas canvas, RotatedTileBox tilesRect, DrawSettings drawSettings) {
 		
 	}
 	

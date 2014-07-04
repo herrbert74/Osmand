@@ -723,7 +723,7 @@ public class MapActivityActions implements DialogProvider {
 					args.getDouble(KEY_LATITUDE), args.getDouble(KEY_LONGITUDE),args.getString(KEY_NAME));
 			break;
 		case DIALOG_ADD_WAYPOINT:
-			EditText v = (EditText) dialog.getWindow().findViewById(R.id.TextView);
+			TextView v = (TextView) dialog.getWindow().findViewById(R.id.TextView);
 			v.setPadding(5, 0, 5, 0);
 			if(args.getString(KEY_NAME) != null) {
 				v.setText(args.getString(KEY_NAME));

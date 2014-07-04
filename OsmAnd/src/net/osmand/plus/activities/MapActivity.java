@@ -1,10 +1,12 @@
 package net.osmand.plus.activities;
 
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +19,7 @@ import net.osmand.map.MapTileDownloader.DownloadRequest;
 import net.osmand.map.MapTileDownloader.IMapDownloaderCallback;
 import net.osmand.plus.ApplicationMode;
 import net.osmand.plus.BusyIndicator;
+import net.osmand.plus.OsmAndAppCustomization;
 import net.osmand.plus.OsmAndConstants;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.OsmandSettings;
@@ -31,12 +34,16 @@ import net.osmand.plus.dialogs.DialogProvider;
 import net.osmand.plus.plugins.OsmandPlugin;
 import net.osmand.plus.plugins.access.AccessibilityPlugin;
 import net.osmand.plus.plugins.access.AccessibleActivity;
+import net.osmand.plus.plugins.access.AccessibleAlertBuilder;
 import net.osmand.plus.plugins.access.AccessibleToast;
 import net.osmand.plus.plugins.access.MapAccessibilityActions;
+import net.osmand.plus.plugins.sherpafy.SherpafyCustomization;
+import net.osmand.plus.render.MapRenderRepositories;
 import net.osmand.plus.render.RendererRegistry;
 import net.osmand.plus.resources.ResourceManager;
 import net.osmand.plus.routing.RoutingHelper;
 import net.osmand.plus.routing.RoutingHelper.RouteCalculationProgressCallback;
+import net.osmand.plus.sherpafy.TourViewActivity;
 import net.osmand.plus.utils.GpxImportHelper;
 import net.osmand.plus.views.AnimateDraggingMapThread;
 import net.osmand.plus.views.OsmandMapLayer;
@@ -48,11 +55,18 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -64,6 +78,8 @@ import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -74,6 +90,20 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class MapActivity extends AccessibleActivity {
+
+	/********** From Main Activity ******************/
+	private static final String FIRST_TIME_APP_RUN = "FIRST_TIME_APP_RUN"; //$NON-NLS-1$
+	private static final String VECTOR_INDEXES_CHECK = "VECTOR_INDEXES_CHECK"; //$NON-NLS-1$
+	private static final String TIPS_SHOW = "TIPS_SHOW"; //$NON-NLS-1$
+	private static final String VERSION_INSTALLED = "VERSION_INSTALLED"; //$NON-NLS-1$
+	private static final String EXCEPTION_FILE_SIZE = "EXCEPTION_FS"; //$NON-NLS-1$
+
+	private static final String CONTRIBUTION_VERSION_FLAG = "CONTRIBUTION_VERSION_FLAG";
+
+	public static final int APP_EXIT_CODE = 4;
+	public static final String APP_EXIT_KEY = "APP_EXIT_KEY";
+
+	/********** From Main Activity ******************/
 
 	private static final int SHOW_POSITION_MSG_ID = OsmAndConstants.UI_HANDLER_MAP_VIEW + 1;
 	private static final int LONG_KEYPRESS_MSG_ID = OsmAndConstants.UI_HANDLER_MAP_VIEW + 2;
@@ -129,9 +159,75 @@ public class MapActivity extends AccessibleActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		app = getMyApplication();
 		settings = app.getSettings();
-		app.applyTheme(this);
+		//app.applyTheme(this);
 		super.onCreate(savedInstanceState);
 
+		/********** From Main Activity ******************/
+		
+		if(Version.isSherpafy(getMyApplication())) {
+			final Intent mapIntent = new Intent(this, TourViewActivity.class);
+			getMyApplication().setAppCustomization(new SherpafyCustomization());
+			startActivity(mapIntent);
+			finish();
+			return;
+		}
+		
+		final OsmAndAppCustomization appCustomization = getMyApplication().getAppCustomization();
+		
+		if(app.getSettings().FOLLOW_THE_ROUTE.get() && !app.getRoutingHelper().isRouteCalculated()){
+			final Intent mapIndent = new Intent(this, appCustomization.getMapActivity());
+			startActivityForResult(mapIndent, 0);
+			return;
+		}
+		startProgressDialog = new ProgressDialog(this);
+		getMyApplication().checkApplicationIsBeingInitialized(this, startProgressDialog);
+		boolean dialogShown = false;
+		boolean firstTime = false;
+		SharedPreferences pref = getPreferences(MODE_WORLD_WRITEABLE);
+		boolean appVersionChanged = false;
+		if (!pref.contains(FIRST_TIME_APP_RUN)) {
+			firstTime = true;
+			pref.edit().putBoolean(FIRST_TIME_APP_RUN, true).commit();
+			pref.edit().putString(VERSION_INSTALLED, Version.getFullVersion(app)).commit();
+		} else if (!Version.getFullVersion(app).equals(pref.getString(VERSION_INSTALLED, ""))) {
+			pref.edit().putString(VERSION_INSTALLED, Version.getFullVersion(app)).commit();
+			appVersionChanged = true;
+		}
+		if (appCustomization.showFirstTimeRunAndTips(firstTime, appVersionChanged)) {
+			if (firstTime) {
+				applicationInstalledFirstTime();
+				dialogShown = true;
+			} else {
+				int i = pref.getInt(TIPS_SHOW, 0);
+				if (i < 7) {
+					pref.edit().putInt(TIPS_SHOW, ++i).commit();
+				}
+				if (i == 1 || i == 5 || appVersionChanged) {
+					TipsAndTricksActivity tipsActivity = new TipsAndTricksActivity(this);
+					Dialog dlg = tipsActivity.getDialogToShowTips(!appVersionChanged, false);
+					dlg.show();
+					dialogShown = true;
+				}
+			}
+		}
+		if(!dialogShown && appCustomization.checkBasemapDownloadedOnStart()) {
+			if (startProgressDialog.isShowing()) {
+				startProgressDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+					@Override
+					public void onDismiss(DialogInterface dialog) {
+						checkVectorIndexesDownloaded();
+					}
+				});
+			} else {
+				checkVectorIndexesDownloaded();
+			}
+		}
+		if(appCustomization.checkExceptionsOnStart()){
+			checkPreviousRunsForExceptions(firstTime);
+		}
+
+		/********** From Main Activity ******************/
+		
 		mapActions = new MapActivityActions(this);
 		mapLayers = new MapActivityLayers(this);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -140,7 +236,7 @@ public class MapActivity extends AccessibleActivity {
 		setContentView(R.layout.main);
 		startProgressDialog = new ProgressDialog(this);
 		startProgressDialog.setCancelable(true);
-		app.checkApplicationIsBeingInitialized(this, startProgressDialog);
+		//app.checkApplicationIsBeingInitialized(this, startProgressDialog);
 		parseLaunchIntentLocation();
 
 		mapView = (OsmandMapTileView) findViewById(R.id.MapView);
@@ -235,43 +331,16 @@ public class MapActivity extends AccessibleActivity {
 
 			}
 		});
-		//mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-		/*
-		        // enable ActionBar app icon to behave as action to toggle nav drawer
-		        getActionBar().setDisplayHomeAsUpEnabled(true);
-		        getActionBar().setHomeButtonEnabled(true);
-
-		        // ActionBarDrawerToggle ties together the the proper interactions
-		        // between the sliding drawer and the action bar app icon
-		        /*mDrawerToggle = new ActionBarDrawerToggle(
-		                this,                 
-		                mDrawerLayout,        
-		                R.drawable.ic_drawer, 
-		                R.string.drawer_open, 
-		                R.string.drawer_close 
-		                ) {
-		            public void onDrawerClosed(View view) {
-		                getActionBar().setTitle(mTitle);
-		                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-		            }
-
-		            public void onDrawerOpened(View drawerView) {
-		                getActionBar().setTitle(mDrawerTitle);
-		                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-		            }
-		        };
-		        mDrawerLayout.setDrawerListener(mDrawerToggle);*/
-
 	}
 
-	public void toggleDrawer(){
+	public void toggleDrawer() {
 		if (mDrawerLayout.isDrawerOpen(Gravity.LEFT))
 			mDrawerLayout.closeDrawers();
-		else{
+		else {
 			mDrawerLayout.openDrawer(Gravity.LEFT);
 		}
 	}
-	
+
 	public void addLockView(FrameLayout lockView) {
 		this.lockView = lockView;
 	}
@@ -780,6 +849,10 @@ public class MapActivity extends AccessibleActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == APP_EXIT_CODE) {
+			getMyApplication().closeApplication(this);
+		}
 		OsmandPlugin.onMapActivityResult(requestCode, resultCode, data);
 	}
 
@@ -789,5 +862,121 @@ public class MapActivity extends AccessibleActivity {
 
 	public View getLayout() {
 		return getWindow().getDecorView().findViewById(android.R.id.content);
+	}
+
+	/********** From Main Activity ******************/
+
+	public void checkPreviousRunsForExceptions(boolean firstTime) {
+		long size = getPreferences(MODE_WORLD_READABLE).getLong(EXCEPTION_FILE_SIZE, 0);
+		final OsmandApplication app = ((OsmandApplication) getApplication());
+		final File file = app.getAppPath(OsmandApplication.EXCEPTION_PATH);
+		if (file.exists() && file.length() > 0) {
+			if (size != file.length() && !firstTime) {
+				String msg = MessageFormat.format(getString(R.string.previous_run_crashed),
+						OsmandApplication.EXCEPTION_PATH);
+				Builder builder = new AccessibleAlertBuilder(MapActivity.this);
+				builder.setMessage(msg).setNeutralButton(getString(R.string.close), null);
+				builder.setPositiveButton(R.string.send_report, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(Intent.ACTION_SEND);
+						intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "osmand.app@gmail.com" }); //$NON-NLS-1$
+						intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+						intent.setType("vnd.android.cursor.dir/email"); //$NON-NLS-1$
+						intent.putExtra(Intent.EXTRA_SUBJECT, "OsmAnd bug"); //$NON-NLS-1$
+						StringBuilder text = new StringBuilder();
+						text.append("\nDevice : ").append(Build.DEVICE); //$NON-NLS-1$
+						text.append("\nBrand : ").append(Build.BRAND); //$NON-NLS-1$
+						text.append("\nModel : ").append(Build.MODEL); //$NON-NLS-1$
+						text.append("\nProduct : ").append(Build.PRODUCT); //$NON-NLS-1$
+						text.append("\nBuild : ").append(Build.DISPLAY); //$NON-NLS-1$
+						text.append("\nVersion : ").append(Build.VERSION.RELEASE); //$NON-NLS-1$
+						text.append("\nApp Version : ").append(Version.getAppName(app)); //$NON-NLS-1$
+						try {
+							PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
+							if (info != null) {
+								text.append("\nApk Version : ").append(info.versionName).append(" ").append(info.versionCode); //$NON-NLS-1$ //$NON-NLS-2$
+							}
+						} catch (NameNotFoundException e) {
+						}
+						intent.putExtra(Intent.EXTRA_TEXT, text.toString());
+						startActivity(Intent.createChooser(intent, getString(R.string.send_report)));
+					}
+
+				});
+				builder.show();
+			}
+			getPreferences(MODE_WORLD_WRITEABLE).edit().putLong(EXCEPTION_FILE_SIZE, file.length()).commit();
+		} else {
+			if (size > 0) {
+				getPreferences(MODE_WORLD_WRITEABLE).edit().putLong(EXCEPTION_FILE_SIZE, 0).commit();
+			}
+		}
+	}
+
+	private void applicationInstalledFirstTime() {
+		boolean netOsmandWasInstalled = false;
+		try {
+			ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo("net.osmand",
+					PackageManager.GET_META_DATA);
+			netOsmandWasInstalled = applicationInfo != null && !Version.isFreeVersion(getMyApplication());
+		} catch (NameNotFoundException e) {
+			netOsmandWasInstalled = false;
+		}
+
+		if (netOsmandWasInstalled) {
+			//			Builder builder = new AccessibleAlertBuilder(this);
+			//			builder.setMessage(R.string.osmand_net_previously_installed);
+			//			builder.setPositiveButton(R.string.default_buttons_ok, null);
+			//			builder.show();
+		} else {
+			Builder builder = new AccessibleAlertBuilder(this);
+			builder.setMessage(R.string.first_time_msg);
+			builder.setPositiveButton(R.string.first_time_download, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					startActivity(new Intent(MapActivity.this, getMyApplication().getAppCustomization()
+							.getDownloadIndexActivity()));
+				}
+
+			});
+			builder.setNegativeButton(R.string.first_time_continue, null);
+			builder.show();
+		}
+	}
+
+	protected void checkVectorIndexesDownloaded() {
+		MapRenderRepositories maps = getMyApplication().getResourceManager().getRenderer();
+		SharedPreferences pref = getPreferences(MODE_WORLD_WRITEABLE);
+		boolean check = pref.getBoolean(VECTOR_INDEXES_CHECK, true);
+		// do not show each time 
+		if (check && new Random().nextInt() % 5 == 1) {
+			Builder builder = new AccessibleAlertBuilder(this);
+			if (maps.isEmpty()) {
+				builder.setMessage(R.string.vector_data_missing);
+			} else if (!maps.basemapExists()) {
+				builder.setMessage(R.string.basemap_missing);
+			} else {
+				return;
+			}
+			builder.setPositiveButton(R.string.download_files, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					startActivity(new Intent(MapActivity.this, DownloadIndexActivity.class));
+				}
+
+			});
+			builder.setNeutralButton(R.string.vector_map_not_needed, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					getPreferences(MODE_WORLD_WRITEABLE).edit().putBoolean(VECTOR_INDEXES_CHECK, false).commit();
+				}
+			});
+			builder.setNegativeButton(R.string.first_time_continue, null);
+			builder.show();
+		}
+
 	}
 }

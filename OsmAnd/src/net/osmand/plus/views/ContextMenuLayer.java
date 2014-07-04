@@ -137,7 +137,7 @@ public class ContextMenuLayer extends OsmandMapLayer {
 	}
 	
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox box, DrawSettings nightMode) {
+	public void drawLayer(Canvas canvas, RotatedTileBox box, DrawSettings nightMode) {
 		if(latLon != null){
 			int x = (int) box.getPixXFromLatLon(latLon.getLatitude(), latLon.getLongitude());
 			int y = (int) box.getPixYFromLatLon(latLon.getLatitude(), latLon.getLongitude());

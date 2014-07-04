@@ -55,7 +55,7 @@ public class TransportInfoLayer extends OsmandMapLayer {
 	}
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {}
+	public void drawLayer(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {}
 	
 	@Override
 	public void onPrepareBufferImage(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {

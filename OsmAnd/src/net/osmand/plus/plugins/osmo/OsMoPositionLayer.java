@@ -117,7 +117,7 @@ public class OsMoPositionLayer extends OsmandMapLayer implements ContextMenuLaye
 	}
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tb, DrawSettings nightMode) {
+	public void drawLayer(Canvas canvas, RotatedTileBox tb, DrawSettings nightMode) {
 		final int r = getRadiusPoi(tb);
 		long treshold = System.currentTimeMillis() - 15000;
 		for (OsMoDevice t : getTrackingDevices()) {

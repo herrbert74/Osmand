@@ -1097,7 +1097,6 @@ OsmAnd هو المصدر المفتوح و التي يجري تطويرها بن
 	<string name="city_type_village">قرية</string>
 	<string name="city_type_town">مدينة</string>
 	<string name="city_type_city">مدينة</string>
-	<string name="layer_poi_label">تسميات POI</string>
 	<string name="animate_route_off">وقف المحاكاة</string>
 	<string name="animate_route">ابدا المحاكاة</string>
 	<string name="tip_recent_changes_0_6_8_t">التغييرات في 0.6.8: ↵

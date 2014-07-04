@@ -278,7 +278,6 @@
   <string name="city_type_village">Dorpie</string>
   <string name="city_type_town">Dorp</string>
   <string name="city_type_city">Stad</string>
-  <string name="layer_poi_label">Interessante plek etikette</string>
   <string name="animate_route_off">stop animasie</string>
   <string name="animate_route">Begin animasie</string>
   <string name="tip_recent_changes_0_6_8_t">"Veranderinge in 0.6.8:\n\t-heeltemal herontwerpte soek (interessante plek, adres)! Maak adres soek baie vinniger en meer responsief. Skep \'n soektog koppelvlak met baie verskillende keuses.\n\t-Implementeer interessante plek soek met die naam in groot gebiede (lande)\n\t-Herstel flikkerende kaart skerm vir tablette (Nommer 641)\n\t-Outo-senter kaart uitsig keuse (Nommer 356)\n\t-GPX navigasie verskuif na \'Aanwysings\' en \'Berg Aanwysings \'geskuif na \' Oor roete\n\t-POI inligting in obf lêer. (alle aflaai indekse na 01/10/11)\n\t-Stem aankondiging oplossing (GPS ligging oplossing, weglating van eerste opdrag)\n\t-klein verbeteringe "

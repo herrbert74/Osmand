@@ -77,7 +77,7 @@ public class AudioNotesLayer extends OsmandMapLayer implements IContextMenuProvi
 	}
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {
+	public void drawLayer(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {
 	}
 	
 	@Override

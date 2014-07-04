@@ -179,7 +179,7 @@ public class POIMapLayer extends OsmandMapLayer implements ContextMenuLayer.ICon
 	}
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {
+	public void drawLayer(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {
 	}
 
 	@Override

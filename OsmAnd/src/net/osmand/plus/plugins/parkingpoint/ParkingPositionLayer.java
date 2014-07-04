@@ -75,7 +75,7 @@ public class ParkingPositionLayer extends OsmandMapLayer implements ContextMenuL
 	}
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tb, DrawSettings nightMode) {
+	public void drawLayer(Canvas canvas, RotatedTileBox tb, DrawSettings nightMode) {
         LatLon parkingPoint = getParkingPoint();
         if (parkingPoint == null)
 			return;

@@ -192,7 +192,7 @@ public class GPXLayer extends OsmandMapLayer implements ContextMenuLayer.IContex
 	}
 	
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {
+	public void drawLayer(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {
 	}
 
 

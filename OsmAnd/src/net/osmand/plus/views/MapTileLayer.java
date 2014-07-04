@@ -121,7 +121,7 @@ public class MapTileLayer extends BaseMapLayer {
 	}
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings drawSettings) {
+	public void drawLayer(Canvas canvas, RotatedTileBox tileBox, DrawSettings drawSettings) {
 		
 	}
 

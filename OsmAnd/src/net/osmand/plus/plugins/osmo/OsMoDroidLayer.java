@@ -245,7 +245,7 @@ public class OsMoDroidLayer extends OsmandMapLayer implements ContextMenuLayer.I
 	}
 	
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {}
+	public void drawLayer(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {}
 
 	public void getOsMoDroidPointFromPoint(RotatedTileBox tb,PointF point, List<? super OsMoDroidPoint> om) {
 		if (osMoDroidPointArrayList != null) {

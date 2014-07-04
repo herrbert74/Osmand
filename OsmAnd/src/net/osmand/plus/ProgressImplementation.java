@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -28,7 +29,6 @@ public class ProgressImplementation implements IProgress {
 	private Runnable finishRunnable = null;
 	private final boolean cancelable;
 	private TextView tv;
-	
 
 	public ProgressImplementation(Context ctx, ProgressDialog dlg, boolean cancelable) {
 		this.cancelable = cancelable;
@@ -43,6 +43,7 @@ public class ProgressImplementation implements IProgress {
 				switch (msg.what) {
 				case HANDLER_START_TASK:
 					if (dialog != null) {
+						Log.d("mainmenu", "Start message:" + message);
 						dialog.setMessage(message);
 						if (isIndeterminate()) {
 							dialog.setMax(1);

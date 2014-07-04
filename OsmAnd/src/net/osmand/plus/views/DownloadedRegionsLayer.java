@@ -189,7 +189,7 @@ public class DownloadedRegionsLayer extends OsmandMapLayer {
 	}
 
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
+	public void drawLayer(Canvas canvas, RotatedTileBox tileBox, DrawSettings nightMode) {
 		final int zoom = tileBox.getZoom();
 		if (downloadBtn.getVisibility() == View.VISIBLE) {
 			downloadBtn.setVisibility(View.GONE);

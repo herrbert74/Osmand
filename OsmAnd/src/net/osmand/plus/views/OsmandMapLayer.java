@@ -14,7 +14,7 @@ public abstract class OsmandMapLayer {
 	
 	public abstract void initLayer(OsmandMapTileView view);
 	
-	public abstract void onDraw(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings);
+	public abstract void drawLayer(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings);
 
 	public void onPrepareBufferImage(Canvas canvas, RotatedTileBox tileBox, DrawSettings settings) {
 	}
@@ -41,7 +41,7 @@ public abstract class OsmandMapLayer {
 	
 	/**
 	 * This method returns whether canvas should be rotated as 
-	 * map rotated before {@link #onDraw(android.graphics.Canvas, net.osmand.data.RotatedTileBox, net.osmand.plus.views.OsmandMapLayer.DrawSettings)}.
+	 * map rotated before {@link #drawLayer(android.graphics.Canvas, net.osmand.data.RotatedTileBox, net.osmand.plus.views.OsmandMapLayer.DrawSettings)}.
 	 * If the layer draws simply layer over screen (not over map)
 	 * it should return true.
 	 */

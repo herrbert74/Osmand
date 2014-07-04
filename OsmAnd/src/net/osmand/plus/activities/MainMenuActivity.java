@@ -208,6 +208,7 @@ public class MainMenuActivity extends Activity {
 		
 		final OsmAndAppCustomization appCustomization = getMyApplication().getAppCustomization();
 		
+		
 		onCreateMainMenu(getWindow(), this);
 
 		Window window = getWindow();
@@ -256,6 +257,7 @@ public class MainMenuActivity extends Activity {
 			}
 		});
 		appCustomization.customizeMainMenu(window, this);
+		
 		OsmandApplication app = getMyApplication();
 		// restore follow route mode
 		if(app.getSettings().FOLLOW_THE_ROUTE.get() && !app.getRoutingHelper().isRouteCalculated()){
@@ -310,7 +312,6 @@ public class MainMenuActivity extends Activity {
 			checkPreviousRunsForExceptions(firstTime);
 		}
 	}
-
 
 	private void applicationInstalledFirstTime() {
 		boolean netOsmandWasInstalled = false;
@@ -400,7 +401,7 @@ public class MainMenuActivity extends Activity {
         }
         return super.onKeyDown(keyCode, event);
     }
-    
+    /*
     public static void backToMainMenuDialog(final Activity a, final LatLon searchLocation) {
 		final Dialog dlg = new Dialog(a, R.style.Dialog_Fullscreen);
 		final View menuView = (View) a.getLayoutInflater().inflate(R.layout.menu, null);
@@ -493,7 +494,7 @@ public class MainMenuActivity extends Activity {
 		// newIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		// startActivity(newIntent);
 	}
-	
+*/	
     
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) {

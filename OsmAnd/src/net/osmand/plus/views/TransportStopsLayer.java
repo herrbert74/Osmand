@@ -154,7 +154,7 @@ public class TransportStopsLayer extends OsmandMapLayer implements ContextMenuLa
 	}
 	
 	@Override
-	public void onDraw(Canvas canvas, RotatedTileBox tb, DrawSettings settings) {
+	public void drawLayer(Canvas canvas, RotatedTileBox tb, DrawSettings settings) {
 	}
 
 	@Override
