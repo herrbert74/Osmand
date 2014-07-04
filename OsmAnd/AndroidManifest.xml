@@ -222,24 +222,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="net.osmand.plus.routepointsnavigation.RoutePointsActivity" />
-        <activity
-            android:name="net.osmand.plus.plugins.osmo.SettingsOsMoActivity"
-            android:configChanges="keyboardHidden|orientation" >
-        </activity>
-        <activity android:name="net.osmand.plus.plugins.osmo.OsMoGroupsActivity" >
-            <intent-filter>
-                <data
-                    android:host="z.osmo.mobi"
-                    android:scheme="http" />
-
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" >
-                </category>
-            </intent-filter>
-        </activity>
+        
+        
         <activity
             android:name="net.osmand.plus.activities.SettingsActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -261,6 +245,7 @@
             android:name="net.osmand.plus.plugins.rastermaps.SettingsRasterMapsActivity"
             android:configChanges="keyboardHidden|orientation" >
         </activity>
+<activity android:name="net.osmand.plus.routepointsnavigation.RoutePointsActivity" />
         <activity
             android:name="net.osmand.plus.plugins.osmedit.SettingsOsmEditingActivity"
             android:configChanges="keyboardHidden|orientation" >
@@ -303,6 +288,26 @@
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/contribution_activity" >
         </activity>
+
+
+<activity
+            android:name="net.osmand.plus.plugins.osmo.SettingsOsMoActivity"
+            android:configChanges="keyboardHidden|orientation" >
+        </activity>
+        <activity android:name="net.osmand.plus.plugins.osmo.OsMoGroupsActivity" >
+            <intent-filter>
+                <data
+                    android:host="z.osmo.mobi"
+                    android:scheme="http" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" >
+                </category>
+            </intent-filter>
+        </activity>
+
         <activity
             android:name="net.osmand.plus.activities.search.SearchPOIActivity"
             android:label="@string/searchpoi_activity" >
@@ -353,7 +358,10 @@
             <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.item/postal-address_v2" />
-            </intent-filter>
+            </intent-filter>
+
+
+
             -->
         </activity>
         <activity android:name="net.osmand.plus.plugins.development.TestVoiceActivity" >
